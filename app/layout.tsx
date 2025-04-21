@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 const inter = Inter({ subsets: ['latin'] });
-const anthonio = localFont({ src: '../../public/fonts/AnthonioScript.ttf' });
+const anthonio = localFont({ src: './fonts/AnthonioScript.ttf' });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -31,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${montserrat.className} ${anthonio.className} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${montserrat.className} antialiased`}
       >
         {children}
       </body>
