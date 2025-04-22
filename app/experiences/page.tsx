@@ -305,7 +305,7 @@ export default function Experiences() {
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 relative">
                       <div className="relative">
                         <h2 className="text-xl md:text-2xl font-bold text-white group-hover:text-[#8B4FFF] transition-colors duration-500">{exp.company}</h2>
-                        <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#8B4FFF] group-hover:w-full transition-all duration-500"></div>
+                        <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#8B4FFF] hidden md:block group-hover:w-full transition-all duration-500"></div>
                       </div>
                       <span className="text-white font-medium text-sm md:text-base bg-[#2D1B4E]/40 px-4 py-1.5 rounded-full border border-[#2D1B4E]/30 group-hover:border-[#8B4FFF]/30 group-hover:bg-[#2D1B4E]/50 transition-all duration-500">{exp.year}</span>
                     </div>
@@ -330,7 +330,7 @@ export default function Experiences() {
                     {/* Rôle avec effet de surbrillance */}
                     <div className="relative mb-4">
                       <h3 className="text-lg md:text-xl text-white font-medium group-hover:text-[#8B4FFF] transition-colors duration-500">{exp.role}</h3>
-                      <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#8B4FFF] group-hover:w-full transition-all duration-500 delay-100"></div>
+                      <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#8B4FFF] hidden md:block group-hover:w-full transition-all duration-500 delay-100"></div>
                     </div>
 
                     {/* Liste des tâches avec style amélioré */}

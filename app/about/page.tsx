@@ -257,7 +257,7 @@ export default function About() {
                             <span className="text-2xl">{item.icon}</span>
                             <h3 className="text-xl font-bold text-white group-hover:text-[#8B4FFF] transition-colors duration-300">{item.title}</h3>
                           </div>
-                          <span className="hidden max-md:block text-white font-medium text-sm bg-[#2D1B4E]/40 px-4 py-1.5 rounded-full border border-[#2D1B4E]/30 group-hover:border-[#8B4FFF]/30 group-hover:bg-[#2D1B4E]/50 transition-all duration-500">
+                          <span className="hidden max-md:flex max-md:ml-auto text-white font-medium text-sm bg-[#2D1B4E]/40 px-4 py-1.5 rounded-full border border-[#2D1B4E]/30 group-hover:border-[#8B4FFF]/30 group-hover:bg-[#2D1B4E]/50 transition-all duration-500">
                             {item.year}
                           </span>
                         </div>
