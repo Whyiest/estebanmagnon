@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import localFont from 'next/font/local';
+import Image from 'next/image';
 
 const anthonio = localFont({ src: '../fonts/AnthonioScript.ttf' });
 
@@ -14,7 +15,13 @@ export default function Navigation() {
       <div className="container mx-auto flex justify-between items-center">
         <div className={`text-5xl ${anthonio.className} text-white`}>
           <Link href="/" className="hover:text-gray-300 transition-colors">
-            esteban magnon
+            <Image
+              src="/logo.svg"
+              alt="Esteban Magnon"
+              width={200}
+              height={50}
+              className="h-12 w-auto"
+            />
           </Link>
         </div>
         

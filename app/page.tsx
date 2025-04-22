@@ -150,6 +150,9 @@ export default function Home() {
               <span className="block opacity-0 animate-slide-up text-white">
                 ESTEBAN
               </span>
+              <span className="block opacity-0 animate-slide-up text-gray-600 text-4xl md:text-6xl mt-2">
+                MAGNON
+              </span>
             </h1>
 
             {/* Modern Terminal Card */}
