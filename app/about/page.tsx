@@ -1,44 +1,32 @@
-'use client';
-
 import { Montserrat, Inter } from 'next/font/google';
-import Link from 'next/link';
 import localFont from 'next/font/local';
+import Navigation from '../components/Navigation';
+import { Metadata } from 'next';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 const inter = Inter({ subsets: ['latin'] });
 const anthonio = localFont({ src: '../fonts/AnthonioScript.ttf' });
 
+export const metadata: Metadata = {
+  title: "À Propos - Esteban Magnon",
+  description: "Découvrez mon parcours, mes compétences et mes certifications en cybersécurité et développement",
+};
+
 export default function About() {
   return (
     <div className={`min-h-screen gradient-background ${montserrat.className}`}>
-      {/* Navigation */}
-      <nav className="fixed w-full p-6 z-50 bg-opacity-90 backdrop-blur-sm">
-        <div className="container mx-auto flex justify-between items-center">
-          <div className={`text-4xl ${anthonio.className}`}>
-            <Link href="/" className="hover:text-gray-300 transition-colors">
-              esteban magnon
-            </Link>
-          </div>
-          <div className="flex gap-8">
-            <Link href="/" className="text-gray-300 hover:text-white transition-colors">Home</Link>
-            <Link href="/about" className="text-gray-300 hover:text-white transition-colors">About</Link>
-            <Link href="/experiences" className="text-gray-300 hover:text-white transition-colors">Experiences</Link>
-            <Link href="/projets" className="text-gray-300 hover:text-white transition-colors">Projects</Link>
-            <Link href="/contact" className="text-gray-300 hover:text-white transition-colors">Contact</Link>
-          </div>
-        </div>
-      </nav>
-
+      <Navigation />
+      
       {/* Main Content */}
       <main className="relative bg-[#030303]">
         {/* Animated Background */}
-        <div className="absolute inset-0">
-          <div className="absolute w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,_#6B3DDF_0%,_transparent_70%)] opacity-[0.15] blur-2xl animate-float-slow"></div>
-          <div className="absolute w-[600px] h-[600px] bg-[radial-gradient(circle_at_center,_#4B2CA0_0%,_transparent_70%)] opacity-[0.15] blur-2xl animate-float-slow-reverse right-0 top-1/4" style={{ animationDelay: '2s' }}></div>
-          <div className="absolute w-[700px] h-[700px] bg-[radial-gradient(circle_at_center,_#8B4FFF_0%,_transparent_70%)] opacity-[0.15] blur-2xl animate-float-slow left-1/3 bottom-0" style={{ animationDelay: '4s' }}></div>
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,_#6B3DDF_0%,_transparent_70%)] opacity-[0.1] blur-2xl animate-float-slow"></div>
+          <div className="absolute w-[600px] h-[600px] bg-[radial-gradient(circle_at_center,_#4B2CA0_0%,_transparent_70%)] opacity-[0.1] blur-2xl animate-float-slow-reverse right-0 top-1/4" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute w-[700px] h-[700px] bg-[radial-gradient(circle_at_center,_#8B4FFF_0%,_transparent_70%)] opacity-[0.1] blur-2xl animate-float-slow left-1/3 bottom-0" style={{ animationDelay: '4s' }}></div>
         </div>
         
-        <div className="container mx-auto px-4 relative z-10 pt-32 space-y-24">
+        <div className="container mx-auto px-4 relative z-10 pt-32 pb-24 space-y-24">
           {/* Hero Section */}
           <section className="max-w-4xl mx-auto">
             <h1 className="text-5xl md:text-6xl font-bold text-white mb-8 text-center bg-gradient-to-r from-[#4B2CA0] to-[#2D1B69] bg-clip-text text-transparent animate-gradient">
@@ -58,7 +46,7 @@ export default function About() {
               Mon Parcours
             </h2>
             <div className="relative">
-              <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-px bg-gradient-to-b from-[#2D1B69] to-transparent"></div>
+              <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-[#2D1B69] to-transparent border-l-2 border-r-2 border-white/20"></div>
               {[
                 {
                   year: "2025",
@@ -110,20 +98,20 @@ export default function About() {
                   index % 2 === 0 ? 'flex-row-reverse' : ''
                 }`}>
                   <div className="w-1/2"></div>
-                  <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-[#2D1B69] rounded-full border-4 border-[#030303] hover:scale-110 transition-transform duration-300"></div>
-                  <div className="w-1/2">
-                    <div className="bg-[#0a0a0a]/80 p-6 rounded-xl border border-[#2D1B69]/20 backdrop-blur-sm hover:border-[#4B2CA0]/40 hover:shadow-lg hover:shadow-[#2D1B69]/20 transition-all duration-300 transform hover:-translate-y-1">
-                      <div className="flex items-center justify-between mb-3">
-                        <span className="text-[#4B2CA0] font-bold text-lg">{item.year}</span>
-                        <span className="text-gray-400 text-sm">{item.location}</span>
+                  <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-[#2D1B69] rounded-full border-4 border-white/20 hover:scale-110 transition-transform duration-300"></div>
+                  <div className="w-1/2 group relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#1A1625] to-[#13111C] border border-[#2D1B4E]/30 hover:border-[#8B4FFF]/50 transition-all duration-300 p-6 hover:shadow-lg hover:shadow-[#8B4FFF]/10">
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#8B4FFF]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="relative z-10">
+                      <div className="flex items-center gap-3 mb-4">
+                        <h3 className="text-xl font-bold text-white group-hover:text-[#8B4FFF] transition-colors duration-300">{item.title}</h3>
                       </div>
-                      <h3 className="text-white font-bold text-xl mb-1">{item.title}</h3>
-                      <p className="text-[#4B2CA0] font-medium mb-3">{item.subtitle}</p>
+                      <p className="text-gray-300 mb-2">{item.subtitle}</p>
+                      <p className="text-gray-400 text-sm mb-4">{item.location}</p>
                       <ul className="space-y-2">
-                        {item.points.map((point, idx) => (
-                          <li key={idx} className="flex items-start gap-2 group">
-                            <div className="w-1.5 h-1.5 bg-[#2D1B69] rounded-full mt-2 group-hover:bg-[#4B2CA0] transition-colors duration-300"></div>
-                            <span className="text-gray-300 text-sm group-hover:text-white transition-colors duration-300">{point}</span>
+                        {item.points.map((point, pointIndex) => (
+                          <li key={pointIndex} className="text-gray-300 flex items-center gap-2">
+                            <span className="w-1.5 h-1.5 bg-[#8B4FFF] rounded-full"></span>
+                            {point}
                           </li>
                         ))}
                       </ul>
@@ -135,108 +123,152 @@ export default function About() {
           </section>
 
           {/* Skills Section */}
-          <section className="max-w-6xl mx-auto">
+          <section className="max-w-7xl mx-auto">
             <h2 className="text-4xl font-bold text-white mb-12 text-center bg-gradient-to-r from-[#4B2CA0] to-[#2D1B69] bg-clip-text text-transparent animate-gradient">
               Compétences
             </h2>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {/* Technical Skills */}
-              <div className="bg-[#0a0a0a]/80 p-8 rounded-2xl border border-[#2D1B69]/20 backdrop-blur-sm hover:border-[#4B2CA0]/40 hover:shadow-lg hover:shadow-[#2D1B69]/20 transition-all duration-300 transform hover:-translate-y-1">
-                <h3 className="text-2xl font-bold text-white mb-6">Langages</h3>
-                <div className="space-y-4">
-                  {["Python", "Java", "SQL"].map((lang, index) => (
-                    <div key={index} className="flex items-center gap-3 group">
-                      <div className="w-2 h-2 bg-[#2D1B69] rounded-full group-hover:bg-[#4B2CA0] transition-colors duration-300"></div>
-                      <span className="text-gray-300 group-hover:text-white transition-colors duration-300">{lang}</span>
+            
+            {/* Main Grid */}
+            <div className="flex flex-col gap-8">
+              {/* Top Grid - 4 boxes */}
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {/* Technical Skills */}
+                <div className="group relative overflow-hidden rounded-2xl bg-[#0a0a0a]/80 backdrop-blur-sm p-6 rounded-xl border border-[#2D1B69]/20 hover:border-[#4B2CA0]/40 hover:shadow-lg hover:shadow-[#2D1B69]/20 transition-all duration-300 transform hover:-translate-y-1">
+                  <div className="flex items-center gap-3 mb-4">
+                    <svg className="w-5 h-5 text-[#4B2CA0]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                    </svg>
+                    <h3 className="text-xl font-bold text-white">Langages</h3>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {[
+                      "Python", "Java", "C++", "C", "SQL", 
+                      "HTML/CSS/JS", "TypeScript", "NoSQL", "Shell"
+                    ].map((lang, index) => (
+                      <span key={index} className="px-3 py-1.5 bg-[#2D1B69]/20 rounded-full text-sm text-gray-300 group-hover:bg-[#4B2CA0]/40 group-hover:text-white transition-all duration-300">
+                        {lang}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Cybersecurity */}
+                <div className="group relative overflow-hidden rounded-2xl bg-[#0a0a0a]/80 backdrop-blur-sm p-6 rounded-xl border border-[#2D1B69]/20 hover:border-[#4B2CA0]/40 hover:shadow-lg hover:shadow-[#2D1B69]/20 transition-all duration-300 transform hover:-translate-y-1">
+                  <div className="flex items-center gap-3 mb-4">
+                    <svg className="w-5 h-5 text-[#4B2CA0]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                    <h3 className="text-xl font-bold text-white">Cybersécurité</h3>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {[
+                      "Pentesting", "IAM", "Firewall", "DevOps", "OSINT", 
+                      "Cisco", "CTF", "OWASP", "Sécurité réseau", 
+                      "Tests d'intrusion", "Vulnérabilités web", "Active Directory"
+                    ].map((skill, index) => (
+                      <span key={index} className="px-3 py-1.5 bg-[#2D1B69]/20 rounded-full text-sm text-gray-300 group-hover:bg-[#4B2CA0]/40 group-hover:text-white transition-all duration-300">
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Tools */}
+                <div className="group relative overflow-hidden rounded-2xl bg-[#0a0a0a]/80 backdrop-blur-sm p-6 rounded-xl border border-[#2D1B69]/20 hover:border-[#4B2CA0]/40 hover:shadow-lg hover:shadow-[#2D1B69]/20 transition-all duration-300 transform hover:-translate-y-1">
+                  <div className="flex items-center gap-3 mb-4">
+                    <svg className="w-5 h-5 text-[#4B2CA0]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                    </svg>
+                    <h3 className="text-xl font-bold text-white">Outils</h3>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {[
+                      "Nessus", "Burp Suite", "Metasploit", "Wireshark", 
+                      "Nmap", "Suite Office", "Git/GitHub", "Docker",
+                      "Kali Linux", "VMware/VirtualBox"
+                    ].map((tool, index) => (
+                      <span key={index} className="px-3 py-1.5 bg-[#2D1B69]/20 rounded-full text-sm text-gray-300 group-hover:bg-[#4B2CA0]/40 group-hover:text-white transition-all duration-300">
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Languages */}
+                <div className="group relative overflow-hidden rounded-2xl bg-[#0a0a0a]/80 backdrop-blur-sm p-6 rounded-xl border border-[#2D1B69]/20 hover:border-[#4B2CA0]/40 hover:shadow-lg hover:shadow-[#2D1B69]/20 transition-all duration-300 transform hover:-translate-y-1">
+                  <div className="flex items-center gap-3 mb-4">
+                    <svg className="w-5 h-5 text-[#4B2CA0]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+                    </svg>
+                    <h3 className="text-xl font-bold text-white">Langues</h3>
+                  </div>
+                  <div className="flex flex-wrap gap-2">
+                    {[
+                      "Français : Courant (Voltaire Expert)",
+                      "Anglais : C1 (TOEFL: 100, TOEIC: 965)",
+                      "Espagnol : B1"
+                    ].map((lang, index) => (
+                      <span key={index} className="px-3 py-1.5 bg-[#2D1B69]/20 rounded-full text-sm text-gray-300 group-hover:bg-[#4B2CA0]/40 group-hover:text-white transition-all duration-300">
+                        {lang}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Certifications - Centered below */}
+              <div className="max-w-3xl mx-auto w-full">
+                <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#1A1625] to-[#13111C] border border-[#2D1B4E]/30 hover:border-[#8B4FFF]/50 transition-all duration-300 p-6 hover:shadow-lg hover:shadow-[#8B4FFF]/10">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#8B4FFF]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="relative z-10">
+                    <div className="flex items-center gap-3 mb-4">
+                      <svg className="w-5 h-5 text-[#8B4FFF]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                      <h3 className="text-xl font-bold text-white group-hover:text-[#8B4FFF] transition-colors duration-300">Certifications</h3>
                     </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Cybersecurity */}
-              <div className="bg-[#0a0a0a]/80 p-8 rounded-2xl border border-[#2D1B69]/20 backdrop-blur-sm hover:border-[#4B2CA0]/40 hover:shadow-lg hover:shadow-[#2D1B69]/20 transition-all duration-300 transform hover:-translate-y-1">
-                <h3 className="text-2xl font-bold text-white mb-6">Cybersécurité</h3>
-                <div className="space-y-4">
-                  {["Pentesting", "IAM", "Firewall", "DevOps", "OSINT", "Cisco"].map((skill, index) => (
-                    <div key={index} className="flex items-center gap-3 group">
-                      <div className="w-2 h-2 bg-[#2D1B69] rounded-full group-hover:bg-[#4B2CA0] transition-colors duration-300"></div>
-                      <span className="text-gray-300 group-hover:text-white transition-colors duration-300">{skill}</span>
+                    <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                      {[
+                        {
+                          name: "AWS Solutions Architect",
+                          org: "Amazon Web Services",
+                          date: "Déc. 2024 - Déc. 2034"
+                        },
+                        {
+                          name: "Junior Penetration Tester",
+                          org: "TryHackMe",
+                          date: "Oct. 2023"
+                        },
+                        {
+                          name: "AZ-900",
+                          org: "Microsoft Azure Fundamentals",
+                          date: "Janv. 2023"
+                        },
+                        {
+                          name: "SC-900",
+                          org: "Microsoft Security Fundamentals",
+                          date: "Janv. 2023"
+                        },
+                        {
+                          name: "BIA",
+                          org: "Brevet d'Initiation Aéronautique",
+                          date: "Oct. 2019"
+                        },
+                        {
+                          name: "PSC1",
+                          org: "Premiers Secours",
+                          date: "Oct. 2018"
+                        }
+                      ].map((cert, index) => (
+                        <div key={index} className="flex flex-col justify-between p-3 bg-[#2D1B4E]/30 rounded-xl text-sm group-hover:bg-[#8B4FFF]/20 transition-all duration-300">
+                          <div>
+                            <div className="text-[#8B4FFF] font-bold group-hover:text-white transition-colors duration-300 truncate">{cert.name}</div>
+                            <div className="text-gray-300 text-xs group-hover:text-white/90 transition-colors duration-300 truncate">{cert.org}</div>
+                          </div>
+                          <div className="text-gray-400 text-xs mt-1 group-hover:text-white/70 transition-colors duration-300">{cert.date}</div>
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Tools */}
-              <div className="bg-[#0a0a0a]/80 p-8 rounded-2xl border border-[#2D1B69]/20 backdrop-blur-sm hover:border-[#4B2CA0]/40 hover:shadow-lg hover:shadow-[#2D1B69]/20 transition-all duration-300 transform hover:-translate-y-1">
-                <h3 className="text-2xl font-bold text-white mb-6">Outils</h3>
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3 group">
-                    <div className="w-2 h-2 bg-[#2D1B69] rounded-full group-hover:bg-[#4B2CA0] transition-colors duration-300"></div>
-                    <span className="text-gray-300 group-hover:text-white transition-colors duration-300">Nessus</span>
-                  </div>
-                  <div className="flex items-center gap-3 group">
-                    <div className="w-2 h-2 bg-[#2D1B69] rounded-full group-hover:bg-[#4B2CA0] transition-colors duration-300"></div>
-                    <span className="text-gray-300 group-hover:text-white transition-colors duration-300">Burp Suite</span>
-                  </div>
-                  <div className="flex items-center gap-3 group">
-                    <div className="w-2 h-2 bg-[#2D1B69] rounded-full group-hover:bg-[#4B2CA0] transition-colors duration-300"></div>
-                    <span className="text-gray-300 group-hover:text-white transition-colors duration-300">TryHackMe (top 8%)</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Systems */}
-              <div className="bg-[#0a0a0a]/80 p-8 rounded-2xl border border-[#2D1B69]/20 backdrop-blur-sm hover:border-[#4B2CA0]/40 hover:shadow-lg hover:shadow-[#2D1B69]/20 transition-all duration-300 transform hover:-translate-y-1">
-                <h3 className="text-2xl font-bold text-white mb-6">Systèmes</h3>
-                <div className="space-y-4">
-                  {[
-                    "Linux",
-                    "Cloud (AWS, Azure)",
-                    "Sécurité réseau",
-                    "POO"
-                  ].map((sys, index) => (
-                    <div key={index} className="flex items-center gap-3 group">
-                      <div className="w-2 h-2 bg-[#2D1B69] rounded-full group-hover:bg-[#4B2CA0] transition-colors duration-300"></div>
-                      <span className="text-gray-300 group-hover:text-white transition-colors duration-300">{sys}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Languages */}
-              <div className="bg-[#0a0a0a]/80 p-8 rounded-2xl border border-[#2D1B69]/20 backdrop-blur-sm hover:border-[#4B2CA0]/40 hover:shadow-lg hover:shadow-[#2D1B69]/20 transition-all duration-300 transform hover:-translate-y-1">
-                <h3 className="text-2xl font-bold text-white mb-6">Langues</h3>
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3 group">
-                    <div className="w-2 h-2 bg-[#2D1B69] rounded-full group-hover:bg-[#4B2CA0] transition-colors duration-300"></div>
-                    <span className="text-gray-300 group-hover:text-white transition-colors duration-300">Français : Courant</span>
-                  </div>
-                  <div className="flex items-center gap-3 group">
-                    <div className="w-2 h-2 bg-[#2D1B69] rounded-full group-hover:bg-[#4B2CA0] transition-colors duration-300"></div>
-                    <span className="text-gray-300 group-hover:text-white transition-colors duration-300">Anglais : C1 (TOEFL: 100)</span>
-                  </div>
-                  <div className="flex items-center gap-3 group">
-                    <div className="w-2 h-2 bg-[#2D1B69] rounded-full group-hover:bg-[#4B2CA0] transition-colors duration-300"></div>
-                    <span className="text-gray-300 group-hover:text-white transition-colors duration-300">Espagnol : B1</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Certifications */}
-              <div className="bg-[#0a0a0a]/80 p-8 rounded-2xl border border-[#2D1B69]/20 backdrop-blur-sm hover:border-[#4B2CA0]/40 hover:shadow-lg hover:shadow-[#2D1B69]/20 transition-all duration-300 transform hover:-translate-y-1">
-                <h3 className="text-2xl font-bold text-white mb-6">Certifications</h3>
-                <div className="space-y-6">
-                  <div className="group">
-                    <h4 className="text-[#4B2CA0] font-bold mb-1 group-hover:text-[#2D1B69] transition-colors duration-300">AZ-900</h4>
-                    <p className="text-gray-300 group-hover:text-white transition-colors duration-300">Microsoft Azure Fundamentals</p>
-                  </div>
-                  <div className="group">
-                    <h4 className="text-[#4B2CA0] font-bold mb-1 group-hover:text-[#2D1B69] transition-colors duration-300">SC-900</h4>
-                    <p className="text-gray-300 group-hover:text-white transition-colors duration-300">Microsoft Security Fundamentals</p>
-                  </div>
-                  <div className="group">
-                    <h4 className="text-[#4B2CA0] font-bold mb-1 group-hover:text-[#2D1B69] transition-colors duration-300">TryHackMe</h4>
-                    <p className="text-gray-300 group-hover:text-white transition-colors duration-300">Junior Pentester</p>
                   </div>
                 </div>
               </div>

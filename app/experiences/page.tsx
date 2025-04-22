@@ -4,12 +4,15 @@ import { Montserrat, Inter } from 'next/font/google';
 import Link from 'next/link';
 import localFont from 'next/font/local';
 import Image from 'next/image';
+import { useState } from 'react';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 const inter = Inter({ subsets: ['latin'] });
 const anthonio = localFont({ src: '../fonts/AnthonioScript.ttf' });
 
 export default function Experiences() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const experiences = [
     {
       year: "2025",
@@ -131,18 +134,62 @@ export default function Experiences() {
               esteban magnon
             </Link>
           </div>
-          <div className="flex gap-8">
+          
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex gap-8">
             <Link href="/" className="text-gray-300 hover:text-white transition-colors">Home</Link>
             <Link href="/about" className="text-gray-300 hover:text-white transition-colors">About</Link>
             <Link href="/experiences" className="text-gray-300 hover:text-white transition-colors">Experiences</Link>
             <Link href="/projets" className="text-gray-300 hover:text-white transition-colors">Projects</Link>
             <Link href="/contact" className="text-gray-300 hover:text-white transition-colors">Contact</Link>
           </div>
+
+          {/* Mobile Navigation Button */}
+          <button
+            className="md:hidden text-white p-2"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              {isMenuOpen ? (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              ) : (
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
+              )}
+            </svg>
+          </button>
         </div>
+
+        {/* Mobile Navigation Menu */}
+        {isMenuOpen && (
+          <div className="md:hidden absolute top-16 left-0 right-0 bg-[#0a0a0a] bg-opacity-95 backdrop-blur-sm p-4">
+            <div className="flex flex-col gap-4">
+              <Link href="/" className="text-white hover:text-gray-300 transition-colors">Home</Link>
+              <Link href="/about" className="text-white hover:text-gray-300 transition-colors">About</Link>
+              <Link href="/experiences" className="text-white hover:text-gray-300 transition-colors">Experiences</Link>
+              <Link href="/projets" className="text-white hover:text-gray-300 transition-colors">Projects</Link>
+              <Link href="/contact" className="text-white hover:text-gray-300 transition-colors">Contact</Link>
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* Main Content */}
-      <main className="pt-32 pb-16 relative overflow-hidden">
+      <main className="relative min-h-screen">
         {/* Animated Background */}
         <div className="absolute inset-0">
           <div className="absolute w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,_#6B3DDF_0%,_transparent_70%)] opacity-[0.15] blur-2xl animate-float-slow"></div>
@@ -150,20 +197,20 @@ export default function Experiences() {
           <div className="absolute w-[700px] h-[700px] bg-[radial-gradient(circle_at_center,_#8B4FFF_0%,_transparent_70%)] opacity-[0.15] blur-2xl animate-float-slow left-1/3 bottom-0" style={{ animationDelay: '4s' }}></div>
         </div>
         
-        <div className="container mx-auto px-4 relative z-10">
-          <h1 className="text-5xl md:text-6xl font-bold text-white mb-16 text-center bg-gradient-to-r from-[#4B2CA0] to-[#2D1B69] bg-clip-text text-transparent animate-gradient opacity-0 animate-slide-up">
+        <div className="container mx-auto px-4 relative z-10 pt-32 pb-16">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-16 text-center bg-gradient-to-r from-[#4B2CA0] to-[#2D1B69] bg-clip-text text-transparent animate-gradient opacity-0 animate-slide-up">
             Expériences
           </h1>
 
-          <div className="max-w-4xl mx-auto space-y-12">
+          <div className="max-w-4xl mx-auto space-y-8 md:space-y-12">
             {experiences.map((exp, index) => (
               <div 
                 key={index} 
-                className="bg-gray-900/50 backdrop-blur-sm p-8 rounded-2xl border border-[#2D1B69]/20 hover:border-[#4B2CA0]/40 hover:shadow-lg hover:shadow-[#2D1B69]/20 transition-all duration-300 transform hover:-translate-y-1 opacity-0 animate-slide-up"
+                className="bg-gray-900/50 backdrop-blur-sm p-4 md:p-8 rounded-2xl border border-[#2D1B69]/20 hover:border-[#4B2CA0]/40 hover:shadow-lg hover:shadow-[#2D1B69]/20 transition-all duration-300 transform hover:-translate-y-1 opacity-0 animate-slide-up"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <div className="flex items-start gap-6">
-                  <div className="w-20 h-20 relative flex-shrink-0">
+                <div className="flex flex-col md:flex-row gap-4 md:gap-8">
+                  <div className="w-16 h-16 md:w-20 md:h-20 relative flex-shrink-0">
                     <Image
                       src={exp.logo}
                       alt={`${exp.company} logo`}
@@ -172,21 +219,21 @@ export default function Experiences() {
                     />
                   </div>
                   <div className="flex-1">
-                    <div className="flex items-center justify-between mb-2">
-                      <h2 className="text-2xl font-bold text-white">{exp.company}</h2>
-                      <span className="text-[#4B2CA0] font-medium">{exp.year}</span>
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
+                      <h2 className="text-xl md:text-2xl font-bold text-white">{exp.company}</h2>
+                      <span className="text-[#4B2CA0] font-medium text-sm md:text-base">{exp.year}</span>
                     </div>
-                    <div className="flex items-center gap-4 text-gray-400 mb-4">
+                    <div className="flex flex-wrap items-center gap-2 md:gap-4 text-gray-400 text-sm md:text-base mb-4">
                       <span>{exp.location}</span>
-                      <span>•</span>
+                      <span className="hidden md:inline">•</span>
                       <span>{exp.duration}</span>
                     </div>
-                    <h3 className="text-xl text-[#4B2CA0] font-medium mb-4">{exp.role}</h3>
+                    <h3 className="text-lg md:text-xl text-[#4B2CA0] font-medium mb-4">{exp.role}</h3>
                     <ul className="space-y-2">
                       {exp.tasks.map((task, taskIndex) => (
                         <li key={taskIndex} className="flex items-start gap-2">
                           <div className="w-1.5 h-1.5 bg-[#2D1B69] rounded-full mt-2"></div>
-                          <span className="text-gray-300">{task}</span>
+                          <span className="text-sm md:text-base text-gray-300">{task}</span>
                         </li>
                       ))}
                     </ul>
