@@ -313,11 +313,16 @@ export default function Experiences() {
                   <div className="flex-1">
                     {/* En-tête avec style asymétrique */}
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 relative">
-                      <div className="relative">
+                      <div className="relative mb-2 md:mb-0">
                         <h2 className="text-xl md:text-2xl font-bold text-white group-hover:text-[#8B4FFF] transition-colors duration-500">{exp.company}</h2>
                         <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#8B4FFF] hidden md:block group-hover:w-full transition-all duration-500"></div>
                       </div>
-                      <span className="text-white font-medium text-sm md:text-base bg-[#13111C]/90 px-4 py-1.5 rounded-full border border-[#2D1B4E]/30 group-hover:border-[#8B4FFF]/30 group-hover:bg-[#2D1B4E]/50 transition-all duration-500">{exp.year}</span>
+                      <span className="flex items-center gap-2 bg-[#13111C]/90 px-3 py-1.5 rounded-lg border border-[#2D1B4E]/20 group-hover:border-[#8B4FFF]/20 transition-all duration-500 w-fit">
+                        <svg className="w-4 h-4 text-white group-hover:text-[#8B4FFF] transition-colors duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        {exp.year}
+                      </span>
                     </div>
 
                     {/* Informations avec icônes stylisées */}
