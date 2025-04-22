@@ -184,8 +184,11 @@ export default function About() {
             <div className="relative">
               {/* Ligne de temps avec effet de lueur */}
               <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1">
-                <div className="absolute inset-0 bg-gradient-to-b from-[#4B2CA0] via-[#2D1B69] to-transparent opacity-50"></div>
-                <div className="absolute inset-0 bg-gradient-to-b from-[#8B4FFF] to-transparent opacity-20 blur-sm"></div>
+                <div className="absolute inset-0 bg-gradient-to-b from-white via-white to-transparent opacity-70"></div>
+                <div className="absolute inset-0 bg-gradient-to-b from-white to-transparent opacity-30 blur-sm"></div>
+                <div className="absolute inset-0 bg-gradient-to-b from-white/50 to-transparent opacity-20"></div>
+                {/* Ligne fantôme animée */}
+                <div className="absolute inset-0 bg-gradient-to-b from-gray-400/30 to-transparent opacity-0 animate-ghost-line"></div>
               </div>
 
               {[

@@ -69,6 +69,21 @@
   }
 }
 
+@keyframes ghost-line {
+  0% {
+    opacity: 0;
+    transform: scaleX(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scaleX(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleX(1);
+  }
+}
+
 .animate-fade-in {
   animation: fadeIn 1s ease-in forwards;
 }
@@ -87,6 +102,10 @@
 
 .animate-float-slow-reverse {
   animation: float-slow-reverse 30s ease-in-out infinite;
+}
+
+.animate-ghost-line {
+  animation: ghost-line 3s ease-in-out infinite;
 }
 
 .gradient-background {

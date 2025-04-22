@@ -338,8 +338,8 @@ export default function Experiences() {
                       {exp.tasks.map((task, taskIndex) => (
                         <li key={taskIndex} className="flex items-start gap-3 group-hover:text-gray-200 transition-colors duration-500">
                           <div className="relative mt-1.5">
-                            <div className="absolute inset-0 bg-white/20 rounded-full blur-sm group-hover:bg-[#8B4FFF]/20 transition-colors duration-500"></div>
-                            <div className="w-1.5 h-1.5 bg-white rounded-full relative group-hover:bg-[#8B4FFF] transition-colors duration-500"></div>
+                            <div className="absolute inset-0 bg-white rounded-full blur-xl group-hover:bg-white transition-colors duration-500 animate-pulse"></div>
+                            <div className="w-3 h-3 bg-white rounded-full relative group-hover:bg-white transition-colors duration-500 shadow-[0_0_20px_rgba(255,255,255,1)]"></div>
                           </div>
                           <span className="text-sm md:text-base text-gray-300">{task}</span>
                         </li>
