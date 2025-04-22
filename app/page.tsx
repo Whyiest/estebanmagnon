@@ -132,9 +132,11 @@ const FloatingBackground = () => {
   return <canvas ref={canvasRef} className="absolute inset-0 z-0" />;
 };
 
-const GalaxyAnimation = () => {
+const ParticleBox = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
   useEffect(() => {
-    const canvas = document.getElementById('galaxyCanvas') as HTMLCanvasElement;
+    const canvas = canvasRef.current;
     if (!canvas) return;
 
     const ctx = canvas.getContext('2d');
@@ -145,107 +147,69 @@ const GalaxyAnimation = () => {
     canvas.width = width;
     canvas.height = height;
 
-    let mouseX = width / 2;
-    let mouseY = height / 2;
-    let isMouseMoving = false;
-    let mouseTimeout: NodeJS.Timeout;
-
     const particles: {
       x: number;
       y: number;
-      size: number;
       speedX: number;
       speedY: number;
-      color: string;
-      opacity: number;
     }[] = [];
 
-    const colors = ['#8B5CF6', '#6366F1', '#4F46E5', '#4338CA'];
-    const particleCount = 150;
+    const particleCount = 40;
+    const connectionDistance = 60;
+    const particleSpeed = 0.3;
 
     // Création des particules
     for (let i = 0; i < particleCount; i++) {
       particles.push({
         x: Math.random() * width,
         y: Math.random() * height,
-        size: Math.random() * 3 + 1,
-        speedX: (Math.random() - 0.5) * 2,
-        speedY: (Math.random() - 0.5) * 2,
-        color: colors[Math.floor(Math.random() * colors.length)],
-        opacity: Math.random() * 0.5 + 0.2
+        speedX: (Math.random() - 0.5) * particleSpeed,
+        speedY: (Math.random() - 0.5) * particleSpeed,
       });
     }
 
-    const drawParticle = (particle: typeof particles[0]) => {
-      ctx.beginPath();
-      ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-      ctx.fillStyle = `${particle.color}${Math.floor(particle.opacity * 255).toString(16).padStart(2, '0')}`;
-      ctx.fill();
-    };
+    const drawParticles = () => {
+      ctx.clearRect(0, 0, width, height);
 
-    const connectParticles = () => {
+      // Dessiner les connexions
+      ctx.strokeStyle = 'rgba(139, 92, 246, 0.15)';
+      ctx.lineWidth = 1;
+
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
           const dy = particles[i].y - particles[j].y;
           const distance = Math.sqrt(dx * dx + dy * dy);
 
-          if (distance < 100) {
+          if (distance < connectionDistance) {
+            const opacity = (1 - distance / connectionDistance) * 0.15;
+            ctx.strokeStyle = `rgba(139, 92, 246, ${opacity})`;
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(139, 92, 246, ${0.2 * (1 - distance / 100)})`;
-            ctx.lineWidth = 1;
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
             ctx.stroke();
           }
         }
       }
-    };
 
-    const animate = () => {
-      ctx.clearRect(0, 0, width, height);
-
+      // Dessiner les particules
       particles.forEach(particle => {
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, 1.2, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(139, 92, 246, 0.4)';
+        ctx.fill();
+
         // Mise à jour de la position
         particle.x += particle.speedX;
         particle.y += particle.speedY;
 
-        // Effet de rebond sur les bords
+        // Rebond sur les bords
         if (particle.x < 0 || particle.x > width) particle.speedX *= -1;
         if (particle.y < 0 || particle.y > height) particle.speedY *= -1;
-
-        // Effet d'attraction vers la souris
-        if (isMouseMoving) {
-          const dx = mouseX - particle.x;
-          const dy = mouseY - particle.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-          if (distance < 200) {
-            particle.x += dx * 0.02;
-            particle.y += dy * 0.02;
-          }
-        }
-
-        drawParticle(particle);
       });
 
-      connectParticles();
-      requestAnimationFrame(animate);
+      requestAnimationFrame(drawParticles);
     };
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = canvas.getBoundingClientRect();
-      mouseX = e.clientX - rect.left;
-      mouseY = e.clientY - rect.top;
-      isMouseMoving = true;
-
-      clearTimeout(mouseTimeout);
-      mouseTimeout = setTimeout(() => {
-        isMouseMoving = false;
-      }, 100);
-    };
-
-    canvas.addEventListener('mousemove', handleMouseMove);
-    animate();
 
     const handleResize = () => {
       width = canvas.offsetWidth;
@@ -255,14 +219,36 @@ const GalaxyAnimation = () => {
     };
 
     window.addEventListener('resize', handleResize);
+    drawParticles();
 
     return () => {
-      canvas.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', handleResize);
     };
   }, []);
 
-  return null;
+  return (
+    <div className="relative w-full h-full">
+      <canvas 
+        ref={canvasRef}
+        className="absolute inset-0 w-full h-full"
+      />
+      <div className="absolute inset-0 flex items-center justify-center">
+        <div className="space-y-6">
+          <p className="text-purple-300 text-lg font-light tracking-wide animate-float-slow">
+            Ingénieur en cybersécurité
+          </p>
+          <div className="flex items-center justify-center gap-6">
+            <span className="px-3 py-1 text-purple-300 text-sm animate-float-slow-2">
+              23 ans
+            </span>
+            <span className="px-3 py-1 text-purple-300 text-sm animate-float-slow-3">
+              Disponible
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default function Home() {
@@ -270,7 +256,6 @@ export default function Home() {
     <div className={`min-h-screen ${montserrat.className}`}>
       <FloatingBackground />
       <Navigation />
-      <GalaxyAnimation />
       
       {/* Main Content */}
       <main className="min-h-screen flex items-center justify-center relative overflow-hidden">
@@ -289,26 +274,9 @@ export default function Home() {
               </span>
             </h1>
 
-            {/* Minimal Floating Animation */}
-            <div className="opacity-0 animate-slide-up-delayed w-full max-w-xl relative">
-              <div className="relative h-24 rounded-xl bg-gradient-to-br from-purple-900/20 to-indigo-900/20 backdrop-blur-sm border border-purple-500/10 overflow-hidden">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center z-10">
-                    <p className="text-purple-300 text-lg font-light tracking-wide mb-2">
-                      Ingénieur en cybersécurité
-                    </p>
-                    <div className="flex items-center justify-center gap-4">
-                      <span className="px-3 py-1 rounded-full bg-purple-500/10 text-purple-300 text-sm">
-                        23 ans
-                      </span>
-                      <span className="px-3 py-1 rounded-full bg-purple-500/10 text-purple-300 text-sm">
-                        Disponible
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <FloatingParticles />
-              </div>
+            {/* Particle Animation Box */}
+            <div className="opacity-0 animate-slide-up-delayed w-full max-w-xl h-40">
+              <ParticleBox />
             </div>
           </div>
         </div>
@@ -316,46 +284,3 @@ export default function Home() {
     </div>
   );
 }
-
-const FloatingParticles = () => {
-  useEffect(() => {
-    const container = document.querySelector('.particles-container') as HTMLDivElement;
-    if (!container) return;
-
-    const particleCount = 15;
-    const particles: HTMLDivElement[] = [];
-
-    for (let i = 0; i < particleCount; i++) {
-      const particle = document.createElement('div');
-      particle.className = 'absolute w-1 h-1 rounded-full bg-purple-400/20';
-      particle.style.left = `${Math.random() * 100}%`;
-      particle.style.top = `${Math.random() * 100}%`;
-      container.appendChild(particle);
-      particles.push(particle);
-
-      // Animation aléatoire pour chaque particule
-      const duration = 3 + Math.random() * 4;
-      const delay = Math.random() * 2;
-      
-      particle.animate(
-        [
-          { transform: 'translate(0, 0)', opacity: 0.2 },
-          { transform: `translate(${Math.random() * 30 - 15}px, ${Math.random() * 30 - 15}px)`, opacity: 0.8 },
-          { transform: 'translate(0, 0)', opacity: 0.2 }
-        ],
-        {
-          duration: duration * 1000,
-          delay: delay * 1000,
-          iterations: Infinity,
-          easing: 'ease-in-out'
-        }
-      );
-    }
-
-    return () => {
-      particles.forEach(particle => particle.remove());
-    };
-  }, []);
-
-  return <div className="particles-container absolute inset-0" />;
-};
