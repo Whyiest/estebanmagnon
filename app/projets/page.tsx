@@ -15,7 +15,6 @@ interface Project {
   id: number;
   title: string;
   description: string;
-  emoji: string;
   tags: string[];
   link?: string;
   github?: string;
@@ -27,7 +26,6 @@ const projects: Project[] = [
     id: 1,
     title: "Pentesting-SambaAD",
     description: "Méthodologie de test d'intrusions dans un environnement Active Directory basé sur Samba AD",
-    emoji: "🛡️",
     tags: ["Cybersécurité", "Python", "Pentest"],
     github: "https://github.com/Whyiest/Pentesting-SambaAD",
     date: "2025"
@@ -36,7 +34,6 @@ const projects: Project[] = [
     id: 2,
     title: "Juice-Shop Write-up",
     description: "Non-official write up for the Juice-Shop CTF - Documentation complète des vulnérabilités et solutions",
-    emoji: "📝",
     tags: ["Cybersécurité", "Python", "CTF", "OWASP"],
     github: "https://github.com/Whyiest/Juice-Shop-Write-up",
     date: "2025"
@@ -45,7 +42,6 @@ const projects: Project[] = [
     id: 3,
     title: "xmlrpc-buldozer",
     description: "Outil de brute force pour les endpoints XML-RPC utilisant la méthode multicall",
-    emoji: "⚡",
     tags: ["Cybersécurité", "Python", "Pentest"],
     github: "https://github.com/Whyiest/xmlrpc-buldozer",
     date: "2025"
@@ -54,7 +50,6 @@ const projects: Project[] = [
     id: 4,
     title: "PwnDoc Vuln",
     description: "Documentation des 100 vulnérabilités du guide OWASP Web avec leurs remédiations en français",
-    emoji: "📚",
     tags: ["Cybersécurité", "OWASP", "Documentation"],
     github: "https://github.com/Whyiest/pwndoc-vuln",
     date: "2024"
@@ -63,7 +58,6 @@ const projects: Project[] = [
     id: 5,
     title: "ARECE",
     description: "Première écurie automobile 100% autonome de France. Création d'une plateforme de parallélisation de tests de simulation pour le véhicule.",
-    emoji: "🚗",
     tags: ["Autonome", "Python", "Simulation", "Shell"],
     link: "https://www.arece.eu/",
     github: "https://github.com/Whyiest/arece-environment",
@@ -73,7 +67,6 @@ const projects: Project[] = [
     id: 6,
     title: "SwiftChat",
     description: "Application de messagerie en temps réel",
-    emoji: "💬",
     tags: ["Applications", "Java", "Réseau"],
     github: "https://github.com/Whyiest/SwiftChat",
     date: "2023"
@@ -82,7 +75,6 @@ const projects: Project[] = [
     id: 7,
     title: "Cluedo Game",
     description: "Jeu de Cluedo basé sur le thème Among Us",
-    emoji: "🎮",
     tags: ["Jeux", "C++", "Among Us"],
     github: "https://github.com/Whyiest/CluedoGame",
     date: "2023"
@@ -91,7 +83,6 @@ const projects: Project[] = [
     id: 8,
     title: "AirControlSimulator",
     description: "Simulateur de contrôle aérien développé en C++ qui visualise et gère des avions sur une carte virtuelle. Utilise l'algorithme de Dijkstra pour calculer les routes les plus courtes et intègre des événements météorologiques et des pannes potentielles.",
-    emoji: "✈️",
     tags: ["Applications", "C++", "SFML", "Simulation"],
     github: "https://github.com/Whyiest/AirControlSimulator",
     date: "2023"
@@ -100,7 +91,6 @@ const projects: Project[] = [
     id: 9,
     title: "The Cocktail Bible",
     description: "Site web pour trouver des cocktails à l'aide d'une API",
-    emoji: "🍹",
     tags: ["Web", "JavaScript", "API"],
     github: "https://github.com/Whyiest/TheCocktailBible",
     date: "2023"
@@ -298,7 +288,6 @@ export default function Projets() {
                   {/* Header */}
                   <div>
                     <div className="flex items-center gap-3 mb-4">
-                      <span className="text-2xl md:text-3xl group-hover:scale-110 transition-transform duration-300">{project.emoji}</span>
                       <h3 className="text-xl md:text-2xl font-bold text-white group-hover:text-[#8B4FFF] transition-colors duration-300">{project.title}</h3>
                     </div>
                     

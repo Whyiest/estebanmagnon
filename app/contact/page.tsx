@@ -11,9 +11,8 @@ const montserrat = Montserrat({ subsets: ['latin'] });
 const inter = Inter({ subsets: ['latin'] });
 const anthonio = localFont({ src: '../fonts/AnthonioScript.ttf' });
 
-const InteractiveBackground = () => {
+const FloatingBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const mouseRef = useRef({ x: 0, y: 0 });
   const timeRef = useRef(0);
 
   useEffect(() => {
@@ -37,11 +36,10 @@ const InteractiveBackground = () => {
       opacity: number;
       angle: number;
       radius: number;
-      connectionDistance: number;
     }[] = [];
 
-    const particleCount = 150;
-    const colors = ['#4B2CA0', '#6B3DDF', '#8B4FFF'];
+    const particleCount = 100;
+    const colors = ['#2D1B4E', '#1E1B2E', '#13111C'];
     const baseRadius = Math.min(width, height) * 0.4;
 
     for (let i = 0; i < particleCount; i++) {
@@ -50,98 +48,36 @@ const InteractiveBackground = () => {
       particles.push({
         x: width * 0.5 + Math.cos(angle) * radius,
         y: height * 0.5 + Math.sin(angle) * radius,
-        size: Math.random() * 3 + 1,
-        speedX: (Math.random() - 0.5) * 0.5,
-        speedY: (Math.random() - 0.5) * 0.5,
+        size: Math.random() * 100 + 50,
+        speedX: (Math.random() - 0.5) * 0.2,
+        speedY: (Math.random() - 0.5) * 0.2,
         color: colors[Math.floor(Math.random() * colors.length)],
-        opacity: Math.random() * 0.5 + 0.2,
+        opacity: Math.random() * 0.1 + 0.05,
         angle: angle,
-        radius: radius,
-        connectionDistance: Math.random() * 100 + 50
+        radius: radius
       });
     }
 
-    const handleMouseMove = (e: MouseEvent) => {
-      mouseRef.current = {
-        x: e.clientX,
-        y: e.clientY
-      };
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-
     const drawBackground = (time: number) => {
       ctx.clearRect(0, 0, width, height);
-
-      // Fond principal avec gradient
-      const gradient = ctx.createLinearGradient(0, 0, width, height);
-      gradient.addColorStop(0, '#050208');
-      gradient.addColorStop(1, '#0A0514');
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, width, height);
-
-      // Dessiner les particules et leurs connexions
-      particles.forEach((particle, i) => {
-        // Mise à jour de la position
-        particle.angle += 0.001;
+      
+      particles.forEach(particle => {
         particle.x += particle.speedX;
         particle.y += particle.speedY;
-
-        // Effet de rebond sur les bords
+        
+        // Rebond sur les bords
         if (particle.x < 0 || particle.x > width) particle.speedX *= -1;
         if (particle.y < 0 || particle.y > height) particle.speedY *= -1;
-
-        // Interaction avec la souris
-        const dx = mouseRef.current.x - particle.x;
-        const dy = mouseRef.current.y - particle.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        if (distance < 100) {
-          particle.x -= dx * 0.02;
-          particle.y -= dy * 0.02;
-        }
-
-        // Dessiner les connexions
-        particles.forEach((otherParticle, j) => {
-          if (i < j) {
-            const dx = particle.x - otherParticle.x;
-            const dy = particle.y - otherParticle.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-
-            if (distance < particle.connectionDistance) {
-              const opacity = (1 - distance / particle.connectionDistance) * 0.2;
-              ctx.beginPath();
-              ctx.strokeStyle = `rgba(139, 79, 255, ${opacity})`;
-              ctx.lineWidth = 1;
-              ctx.moveTo(particle.x, particle.y);
-              ctx.lineTo(otherParticle.x, otherParticle.y);
-              ctx.stroke();
-            }
-          }
-        });
-
+        
         // Dessiner la particule
         ctx.beginPath();
         ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
         ctx.fillStyle = particle.color;
+        ctx.globalAlpha = particle.opacity;
         ctx.fill();
-
-        // Effet de lueur
-        ctx.shadowColor = particle.color;
-        ctx.shadowBlur = 15;
-        ctx.fill();
-        ctx.shadowBlur = 0;
       });
-
-      // Effet de lueur centrale pulsante
-      const centerGlow = ctx.createRadialGradient(
-        width * 0.5, height * 0.5, 0,
-        width * 0.5, height * 0.5, Math.max(width, height) * 0.5
-      );
-      const pulse = Math.sin(time * 0.001) * 0.1 + 0.2;
-      centerGlow.addColorStop(0, `rgba(107, 61, 223, ${pulse})`);
-      centerGlow.addColorStop(1, 'rgba(107, 61, 223, 0)');
-      ctx.fillStyle = centerGlow;
-      ctx.fillRect(0, 0, width, height);
+      
+      ctx.globalAlpha = 1;
     };
 
     const animate = (time: number) => {
@@ -149,8 +85,6 @@ const InteractiveBackground = () => {
       drawBackground(time);
       requestAnimationFrame(animate);
     };
-
-    animate(0);
 
     const handleResize = () => {
       width = window.innerWidth;
@@ -160,13 +94,20 @@ const InteractiveBackground = () => {
     };
 
     window.addEventListener('resize', handleResize);
+    requestAnimationFrame(animate);
+
     return () => {
       window.removeEventListener('resize', handleResize);
-      window.removeEventListener('mousemove', handleMouseMove);
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="absolute inset-0 z-0" />;
+  return (
+    <canvas
+      ref={canvasRef}
+      className="fixed inset-0 w-full h-full"
+      style={{ background: '#050208' }}
+    />
+  );
 };
 
 export default function Contact() {
@@ -183,7 +124,7 @@ export default function Contact() {
 
   return (
     <div className={`min-h-screen ${montserrat.className}`}>
-      <InteractiveBackground />
+      <FloatingBackground />
       <Navigation />
       
       {/* Main Content */}
@@ -195,8 +136,69 @@ export default function Contact() {
             </h1>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {/* Contact Form */}
-              <div className="bg-[#13111C] p-6 md:p-8 rounded-2xl border border-[#2D1B4E]/30">
+              {/* Contact Info - Maintenant à gauche */}
+              <div className="space-y-6 md:order-1">
+                <div className="bg-gradient-to-br from-[#1A1625]/60 to-[#13111C]/60 backdrop-blur-md p-6 md:p-8 rounded-2xl border border-[#2D1B4E]/20 hover:border-[#8B4FFF]/40 transition-all duration-500">
+                  <h2 className="text-xl md:text-2xl font-bold text-white mb-6">Contact direct</h2>
+                  <div className="space-y-4">
+                    <a 
+                      href="mailto:esteban.magnon@outlook.fr"
+                      className="flex items-center gap-4 p-4 bg-[#13111C]/90 rounded-xl border border-[#2D1B4E]/20 hover:border-[#8B4FFF]/20 hover:shadow-lg hover:shadow-[#8B4FFF]/5 transition-all duration-300 transform hover:-translate-y-1 ring-1 ring-[#2D1B4E]/10"
+                    >
+                      <FiMail className="text-2xl text-white" />
+                      <div>
+                        <p className="text-sm md:text-base text-gray-400">Email</p>
+                        <p className="text-white">esteban.magnon@outlook.fr</p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+
+                <div className="bg-gradient-to-br from-[#1A1625]/60 to-[#13111C]/60 backdrop-blur-md p-6 md:p-8 rounded-2xl border border-[#2D1B4E]/20 hover:border-[#8B4FFF]/40 transition-all duration-500">
+                  <h2 className="text-xl md:text-2xl font-bold text-white mb-6">Réseaux sociaux</h2>
+                  <div className="space-y-4">
+                    <a 
+                      href="https://www.linkedin.com/in/esteban-magnon/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-4 p-4 bg-[#13111C]/90 rounded-xl border border-[#2D1B4E]/20 hover:border-[#8B4FFF]/20 hover:shadow-lg hover:shadow-[#8B4FFF]/5 transition-all duration-300 transform hover:-translate-y-1 ring-1 ring-[#2D1B4E]/10"
+                    >
+                      <FiLinkedin className="text-2xl text-white" />
+                      <div>
+                        <p className="text-sm md:text-base text-gray-400">LinkedIn</p>
+                        <p className="text-white">linkedin.com/in/esteban-magnon</p>
+                      </div>
+                    </a>
+
+                    <a 
+                      href="https://github.com/Whyiest"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-4 p-4 bg-[#13111C]/90 rounded-xl border border-[#2D1B4E]/20 hover:border-[#8B4FFF]/20 hover:shadow-lg hover:shadow-[#8B4FFF]/5 transition-all duration-300 transform hover:-translate-y-1 ring-1 ring-[#2D1B4E]/10"
+                    >
+                      <FiGithub className="text-2xl text-white" />
+                      <div>
+                        <p className="text-sm md:text-base text-gray-400">GitHub</p>
+                        <p className="text-white">github.com/Whyiest</p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+
+                <div className="bg-gradient-to-br from-[#1A1625]/60 to-[#13111C]/60 backdrop-blur-md p-6 md:p-8 rounded-2xl border border-[#2D1B4E]/20 hover:border-[#8B4FFF]/40 transition-all duration-500">
+                  <h2 className="text-xl md:text-2xl font-bold text-white mb-6">CV</h2>
+                  <a 
+                    href="/cv-fr.pdf"
+                    className="inline-flex items-center gap-3 px-6 py-4 bg-white rounded-xl border border-white/10 hover:bg-white/90 hover:shadow-lg hover:shadow-white/5 transition-all duration-300 transform hover:-translate-y-1 group"
+                  >
+                    <FaFileAlt className="text-[#2D1B4E] text-xl group-hover:text-[#4B2CA0] transition-colors duration-300" />
+                    <span className="text-[#2D1B4E] font-medium text-base md:text-lg group-hover:text-[#4B2CA0] transition-colors duration-300">Télécharger mon CV</span>
+                  </a>
+                </div>
+              </div>
+
+              {/* Contact Form - Maintenant à droite */}
+              <div className="bg-[#13111C] p-6 md:p-8 rounded-2xl border border-[#2D1B4E]/30 md:order-2">
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
                     <label htmlFor="name" className="block text-sm md:text-base text-gray-300 mb-2">Nom</label>
@@ -237,58 +239,6 @@ export default function Contact() {
                     Envoyer
                   </button>
                 </form>
-              </div>
-
-              {/* Contact Info */}
-              <div className="space-y-6">
-                <div className="bg-[#13111C] p-6 md:p-8 rounded-2xl border border-[#2D1B4E]/30">
-                  <h2 className="text-xl md:text-2xl font-bold text-white mb-6">Informations de contact</h2>
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-4">
-                      <FiMail className="text-2xl text-[#4B2CA0]" />
-                      <div>
-                        <p className="text-sm md:text-base text-gray-400">Email</p>
-                        <p className="text-white">esteban.magnon@proton.me</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-4">
-                      <FiMapPin className="text-2xl text-[#4B2CA0]" />
-                      <div>
-                        <p className="text-sm md:text-base text-gray-400">Localisation</p>
-                        <p className="text-white">Lyon, France</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="bg-[#13111C] p-6 md:p-8 rounded-2xl border border-[#2D1B4E]/30">
-                  <h2 className="text-xl md:text-2xl font-bold text-white mb-6">Réseaux sociaux</h2>
-                  <div className="space-y-4">
-                    <a 
-                      href="https://www.linkedin.com/in/esteban-magnon/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-4 p-4 bg-[#13111C] rounded-xl border border-[#1E1B2E] hover:border-[#2D1B4E] hover:shadow-lg hover:shadow-[#2D1B4E]/20 transition-all duration-300 transform hover:-translate-y-1"
-                    >
-                      <FiLinkedin className="text-2xl text-[#4B2CA0]" />
-                      <div>
-                        <p className="text-sm md:text-base text-gray-400">LinkedIn</p>
-                        <p className="text-white">linkedin.com/in/esteban-magnon</p>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-
-                <div className="bg-[#13111C] p-6 md:p-8 rounded-2xl border border-[#2D1B4E]/30">
-                  <h2 className="text-xl md:text-2xl font-bold text-white mb-6">CV</h2>
-                  <a 
-                    href="/cv-fr.pdf"
-                    className="inline-flex items-center gap-3 px-6 py-4 bg-white rounded-xl border-2 border-[#2D1B4E] hover:border-[#4B2CA0] hover:shadow-lg hover:shadow-[#2D1B4E]/20 transition-all duration-300 transform hover:-translate-y-1"
-                  >
-                    <FaFileAlt className="text-[#4B2CA0] text-xl" />
-                    <span className="text-[#2D1B4E] font-medium text-base md:text-lg">Télécharger mon CV</span>
-                  </a>
-                </div>
               </div>
             </div>
           </div>

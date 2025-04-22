@@ -283,11 +283,15 @@ export default function Experiences() {
             {experiences.map((exp, index) => (
               <div 
                 key={index} 
-                className="bg-gray-900/50 backdrop-blur-sm p-4 md:p-8 rounded-2xl border border-[#2D1B69]/20 hover:border-[#4B2CA0]/40 hover:shadow-lg hover:shadow-[#2D1B69]/20 transition-all duration-300 transform hover:-translate-y-1 opacity-0 animate-slide-up"
+                className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#1A1625]/60 to-[#13111C]/60 backdrop-blur-md border border-[#2D1B4E]/20 hover:border-[#8B4FFF]/40 transition-all duration-500 p-6 md:p-8 hover:shadow-2xl hover:shadow-[#8B4FFF]/5 hover:scale-[1.01] transform-gpu"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <div className="flex flex-col md:flex-row gap-4 md:gap-8">
-                  <div className="w-16 h-16 md:w-20 md:h-20 relative flex-shrink-0">
+                {/* Effet de brillance au hover */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#8B4FFF]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-x-[-100%] group-hover:translate-x-[100%]"></div>
+                
+                <div className="flex flex-col md:flex-row gap-6 relative">
+                  {/* Logo */}
+                  <div className="w-16 h-16 md:w-20 md:h-20 relative flex-shrink-0 group-hover:scale-110 transition-transform duration-500">
                     <Image
                       src={exp.logo}
                       alt={`${exp.company} logo`}
@@ -295,21 +299,48 @@ export default function Experiences() {
                       className="object-contain"
                     />
                   </div>
+
                   <div className="flex-1">
-                    <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-2">
-                      <h2 className="text-xl md:text-2xl font-bold text-white">{exp.company}</h2>
-                      <span className="text-[#4B2CA0] font-medium text-sm md:text-base">{exp.year}</span>
+                    {/* En-tête avec style asymétrique */}
+                    <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 relative">
+                      <div className="relative">
+                        <h2 className="text-xl md:text-2xl font-bold text-white group-hover:text-[#8B4FFF] transition-colors duration-500">{exp.company}</h2>
+                        <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#8B4FFF] group-hover:w-full transition-all duration-500"></div>
+                      </div>
+                      <span className="text-white font-medium text-sm md:text-base bg-[#2D1B4E]/40 px-4 py-1.5 rounded-full border border-[#2D1B4E]/30 group-hover:border-[#8B4FFF]/30 group-hover:bg-[#2D1B4E]/50 transition-all duration-500">{exp.year}</span>
                     </div>
-                    <div className="flex flex-wrap items-center gap-2 md:gap-4 text-gray-400 text-sm md:text-base mb-4">
-                      <span>{exp.location}</span>
-                      <span className="hidden md:inline">•</span>
-                      <span>{exp.duration}</span>
+
+                    {/* Informations avec icônes stylisées */}
+                    <div className="flex flex-wrap items-center gap-3 md:gap-4 text-gray-400 text-sm md:text-base mb-4">
+                      <span className="flex items-center gap-2 bg-[#13111C]/90 px-3 py-1.5 rounded-lg border border-[#2D1B4E]/20 group-hover:border-[#8B4FFF]/20 transition-all duration-500">
+                        <svg className="w-4 h-4 text-white group-hover:text-[#8B4FFF] transition-colors duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        {exp.location}
+                      </span>
+                      <span className="flex items-center gap-2 bg-[#13111C]/90 px-3 py-1.5 rounded-lg border border-[#2D1B4E]/20 group-hover:border-[#8B4FFF]/20 transition-all duration-500">
+                        <svg className="w-4 h-4 text-white group-hover:text-[#8B4FFF] transition-colors duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        {exp.duration}
+                      </span>
                     </div>
-                    <h3 className="text-lg md:text-xl text-[#4B2CA0] font-medium mb-4">{exp.role}</h3>
-                    <ul className="space-y-2">
+
+                    {/* Rôle avec effet de surbrillance */}
+                    <div className="relative mb-4">
+                      <h3 className="text-lg md:text-xl text-white font-medium group-hover:text-[#8B4FFF] transition-colors duration-500">{exp.role}</h3>
+                      <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#8B4FFF] group-hover:w-full transition-all duration-500 delay-100"></div>
+                    </div>
+
+                    {/* Liste des tâches avec style amélioré */}
+                    <ul className="space-y-3">
                       {exp.tasks.map((task, taskIndex) => (
-                        <li key={taskIndex} className="flex items-start gap-2">
-                          <div className="w-1.5 h-1.5 bg-[#2D1B69] rounded-full mt-2"></div>
+                        <li key={taskIndex} className="flex items-start gap-3 group-hover:text-gray-200 transition-colors duration-500">
+                          <div className="relative mt-1.5">
+                            <div className="absolute inset-0 bg-white/20 rounded-full blur-sm group-hover:bg-[#8B4FFF]/20 transition-colors duration-500"></div>
+                            <div className="w-1.5 h-1.5 bg-white rounded-full relative group-hover:bg-[#8B4FFF] transition-colors duration-500"></div>
+                          </div>
                           <span className="text-sm md:text-base text-gray-300">{task}</span>
                         </li>
                       ))}

@@ -20,10 +20,10 @@ export default function Navigation() {
         
         {/* Desktop Navigation */}
         <div className="hidden md:flex gap-8">
-          <Link href="/" className="nav-link">Home</Link>
-          <Link href="/about" className="nav-link">About</Link>
-          <Link href="/experiences" className="nav-link">Experiences</Link>
-          <Link href="/projets" className="nav-link">Projects</Link>
+          <Link href="/" className="nav-link">Accueil</Link>
+          <Link href="/about" className="nav-link">À Propos</Link>
+          <Link href="/experiences" className="nav-link">Expériences</Link>
+          <Link href="/projets" className="nav-link">Projets</Link>
           <Link href="/contact" className="nav-link">Contact</Link>
         </div>
 
@@ -51,10 +51,10 @@ export default function Navigation() {
       {isMenuOpen && (
         <div className="md:hidden absolute top-16 left-0 right-0 bg-[#0a0a0a] bg-opacity-95 backdrop-blur-sm p-4">
           <div className="flex flex-col gap-4">
-            <Link href="/" className="text-white hover:text-gray-300 transition-colors">Home</Link>
-            <Link href="/about" className="text-white hover:text-gray-300 transition-colors">About</Link>
-            <Link href="/experiences" className="text-white hover:text-gray-300 transition-colors">Experiences</Link>
-            <Link href="/projets" className="text-white hover:text-gray-300 transition-colors">Projects</Link>
+            <Link href="/" className="text-white hover:text-gray-300 transition-colors">Accueil</Link>
+            <Link href="/about" className="text-white hover:text-gray-300 transition-colors">À Propos</Link>
+            <Link href="/experiences" className="text-white hover:text-gray-300 transition-colors">Expériences</Link>
+            <Link href="/projets" className="text-white hover:text-gray-300 transition-colors">Projets</Link>
             <Link href="/contact" className="text-white hover:text-gray-300 transition-colors">Contact</Link>
           </div>
         </div>
