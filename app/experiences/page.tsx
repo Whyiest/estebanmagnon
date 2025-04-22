@@ -1,18 +1,15 @@
 'use client';
 
 import { Montserrat, Inter } from 'next/font/google';
-import Link from 'next/link';
 import localFont from 'next/font/local';
 import Image from 'next/image';
-import { useState } from 'react';
+import Navigation from '../components/Navigation';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 const inter = Inter({ subsets: ['latin'] });
 const anthonio = localFont({ src: '../fonts/AnthonioScript.ttf' });
 
 export default function Experiences() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   const experiences = [
     {
       year: "2025",
@@ -125,76 +122,16 @@ export default function Experiences() {
   ];
 
   return (
-    <div className={`min-h-screen bg-[#0a0a0a] ${montserrat.className}`}>
-      {/* Navigation */}
-      <nav className="fixed w-full p-6 z-50 bg-opacity-90 backdrop-blur-sm">
-        <div className="container mx-auto flex justify-between items-center">
-          <div className={`text-4xl ${anthonio.className}`}>
-            <Link href="/" className="hover:text-gray-300 transition-colors">
-              esteban magnon
-            </Link>
-          </div>
-          
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex gap-8">
-            <Link href="/" className="text-gray-300 hover:text-white transition-colors">Home</Link>
-            <Link href="/about" className="text-gray-300 hover:text-white transition-colors">About</Link>
-            <Link href="/experiences" className="text-gray-300 hover:text-white transition-colors">Experiences</Link>
-            <Link href="/projets" className="text-gray-300 hover:text-white transition-colors">Projects</Link>
-            <Link href="/contact" className="text-gray-300 hover:text-white transition-colors">Contact</Link>
-          </div>
-
-          {/* Mobile Navigation Button */}
-          <button
-            className="md:hidden text-white p-2"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            <svg
-              className="w-6 h-6"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              {isMenuOpen ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              )}
-            </svg>
-          </button>
-        </div>
-
-        {/* Mobile Navigation Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden absolute top-16 left-0 right-0 bg-[#0a0a0a] bg-opacity-95 backdrop-blur-sm p-4">
-            <div className="flex flex-col gap-4">
-              <Link href="/" className="text-white hover:text-gray-300 transition-colors">Home</Link>
-              <Link href="/about" className="text-white hover:text-gray-300 transition-colors">About</Link>
-              <Link href="/experiences" className="text-white hover:text-gray-300 transition-colors">Experiences</Link>
-              <Link href="/projets" className="text-white hover:text-gray-300 transition-colors">Projects</Link>
-              <Link href="/contact" className="text-white hover:text-gray-300 transition-colors">Contact</Link>
-            </div>
-          </div>
-        )}
-      </nav>
-
+    <div className={`min-h-screen gradient-background ${montserrat.className}`}>
+      <Navigation />
+      
       {/* Main Content */}
-      <main className="relative min-h-screen">
+      <main className="relative bg-[#030303]">
         {/* Animated Background */}
-        <div className="absolute inset-0">
-          <div className="absolute w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,_#6B3DDF_0%,_transparent_70%)] opacity-[0.15] blur-2xl animate-float-slow"></div>
-          <div className="absolute w-[600px] h-[600px] bg-[radial-gradient(circle_at_center,_#4B2CA0_0%,_transparent_70%)] opacity-[0.15] blur-2xl animate-float-slow-reverse right-0 top-1/4" style={{ animationDelay: '2s' }}></div>
-          <div className="absolute w-[700px] h-[700px] bg-[radial-gradient(circle_at_center,_#8B4FFF_0%,_transparent_70%)] opacity-[0.15] blur-2xl animate-float-slow left-1/3 bottom-0" style={{ animationDelay: '4s' }}></div>
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,_#6B3DDF_0%,_transparent_70%)] opacity-[0.1] blur-2xl animate-float-slow"></div>
+          <div className="absolute w-[600px] h-[600px] bg-[radial-gradient(circle_at_center,_#4B2CA0_0%,_transparent_70%)] opacity-[0.1] blur-2xl animate-float-slow-reverse right-0 top-1/4" style={{ animationDelay: '2s' }}></div>
+          <div className="absolute w-[700px] h-[700px] bg-[radial-gradient(circle_at_center,_#8B4FFF_0%,_transparent_70%)] opacity-[0.1] blur-2xl animate-float-slow left-1/3 bottom-0" style={{ animationDelay: '4s' }}></div>
         </div>
         
         <div className="container mx-auto px-4 relative z-10 pt-32 pb-16">

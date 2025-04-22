@@ -1,16 +1,173 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { FiMail, FiGithub, FiLinkedin, FiMapPin } from 'react-icons/fi';
 import { FaFileAlt } from 'react-icons/fa';
 import { Montserrat, Inter } from 'next/font/google';
 import localFont from 'next/font/local';
-import { FloatingBackground } from '@/components/FloatingBackground';
 import Navigation from '../components/Navigation';
 
 const montserrat = Montserrat({ subsets: ['latin'] });
 const inter = Inter({ subsets: ['latin'] });
 const anthonio = localFont({ src: '../fonts/AnthonioScript.ttf' });
+
+const InteractiveBackground = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const mouseRef = useRef({ x: 0, y: 0 });
+  const timeRef = useRef(0);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+
+    const particles: {
+      x: number;
+      y: number;
+      size: number;
+      speedX: number;
+      speedY: number;
+      color: string;
+      opacity: number;
+      angle: number;
+      radius: number;
+      connectionDistance: number;
+    }[] = [];
+
+    const particleCount = 150;
+    const colors = ['#4B2CA0', '#6B3DDF', '#8B4FFF'];
+    const baseRadius = Math.min(width, height) * 0.4;
+
+    for (let i = 0; i < particleCount; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const radius = baseRadius * (0.5 + Math.random() * 0.5);
+      particles.push({
+        x: width * 0.5 + Math.cos(angle) * radius,
+        y: height * 0.5 + Math.sin(angle) * radius,
+        size: Math.random() * 3 + 1,
+        speedX: (Math.random() - 0.5) * 0.5,
+        speedY: (Math.random() - 0.5) * 0.5,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        opacity: Math.random() * 0.5 + 0.2,
+        angle: angle,
+        radius: radius,
+        connectionDistance: Math.random() * 100 + 50
+      });
+    }
+
+    const handleMouseMove = (e: MouseEvent) => {
+      mouseRef.current = {
+        x: e.clientX,
+        y: e.clientY
+      };
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+
+    const drawBackground = (time: number) => {
+      ctx.clearRect(0, 0, width, height);
+
+      // Fond principal avec gradient
+      const gradient = ctx.createLinearGradient(0, 0, width, height);
+      gradient.addColorStop(0, '#050208');
+      gradient.addColorStop(1, '#0A0514');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, width, height);
+
+      // Dessiner les particules et leurs connexions
+      particles.forEach((particle, i) => {
+        // Mise à jour de la position
+        particle.angle += 0.001;
+        particle.x += particle.speedX;
+        particle.y += particle.speedY;
+
+        // Effet de rebond sur les bords
+        if (particle.x < 0 || particle.x > width) particle.speedX *= -1;
+        if (particle.y < 0 || particle.y > height) particle.speedY *= -1;
+
+        // Interaction avec la souris
+        const dx = mouseRef.current.x - particle.x;
+        const dy = mouseRef.current.y - particle.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        if (distance < 100) {
+          particle.x -= dx * 0.02;
+          particle.y -= dy * 0.02;
+        }
+
+        // Dessiner les connexions
+        particles.forEach((otherParticle, j) => {
+          if (i < j) {
+            const dx = particle.x - otherParticle.x;
+            const dy = particle.y - otherParticle.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < particle.connectionDistance) {
+              const opacity = (1 - distance / particle.connectionDistance) * 0.2;
+              ctx.beginPath();
+              ctx.strokeStyle = `rgba(139, 79, 255, ${opacity})`;
+              ctx.lineWidth = 1;
+              ctx.moveTo(particle.x, particle.y);
+              ctx.lineTo(otherParticle.x, otherParticle.y);
+              ctx.stroke();
+            }
+          }
+        });
+
+        // Dessiner la particule
+        ctx.beginPath();
+        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        ctx.fillStyle = particle.color;
+        ctx.fill();
+
+        // Effet de lueur
+        ctx.shadowColor = particle.color;
+        ctx.shadowBlur = 15;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      });
+
+      // Effet de lueur centrale pulsante
+      const centerGlow = ctx.createRadialGradient(
+        width * 0.5, height * 0.5, 0,
+        width * 0.5, height * 0.5, Math.max(width, height) * 0.5
+      );
+      const pulse = Math.sin(time * 0.001) * 0.1 + 0.2;
+      centerGlow.addColorStop(0, `rgba(107, 61, 223, ${pulse})`);
+      centerGlow.addColorStop(1, 'rgba(107, 61, 223, 0)');
+      ctx.fillStyle = centerGlow;
+      ctx.fillRect(0, 0, width, height);
+    };
+
+    const animate = (time: number) => {
+      timeRef.current = time;
+      drawBackground(time);
+      requestAnimationFrame(animate);
+    };
+
+    animate(0);
+
+    const handleResize = () => {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('mousemove', handleMouseMove);
+    };
+  }, []);
+
+  return <canvas ref={canvasRef} className="absolute inset-0 z-0" />;
+};
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -26,7 +183,7 @@ export default function Contact() {
 
   return (
     <div className={`min-h-screen ${montserrat.className}`}>
-      <FloatingBackground />
+      <InteractiveBackground />
       <Navigation />
       
       {/* Main Content */}

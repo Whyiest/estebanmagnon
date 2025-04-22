@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Montserrat, Inter } from 'next/font/google';
@@ -109,6 +109,145 @@ const projects: Project[] = [
 
 const categories = ["Tous", "Cybersécurité", "Web", "Jeux", "Applications", "Autonome"];
 
+const HaloBackground = () => {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const timeRef = useRef(0);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    const updateCanvasSize = () => {
+      const container = canvas.parentElement;
+      if (!container) return;
+      
+      width = container.offsetWidth;
+      height = container.offsetHeight;
+      canvas.width = width;
+      canvas.height = height;
+    };
+
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    updateCanvasSize();
+
+    const halos: {
+      x: number;
+      y: number;
+      size: number;
+      color: string;
+      opacity: number;
+      speed: number;
+      angle: number;
+      pulseSpeed: number;
+      pulseAmount: number;
+    }[] = [];
+
+    const colors = [
+      '#4B2CA0', // Violet foncé
+      '#6B3DDF', // Violet moyen
+      '#8B4FFF', // Violet clair
+      '#2D1B69', // Bleu-violet foncé
+      '#1E1B2E'  // Bleu très foncé
+    ];
+
+    // Créer plusieurs halos avec des positions et tailles différentes
+    for (let i = 0; i < 8; i++) {
+      halos.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        size: Math.random() * 300 + 200,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        opacity: Math.random() * 0.15 + 0.05,
+        speed: Math.random() * 0.2 + 0.1,
+        angle: Math.random() * Math.PI * 2,
+        pulseSpeed: Math.random() * 0.002 + 0.001,
+        pulseAmount: Math.random() * 0.2 + 0.1
+      });
+    }
+
+    const drawBackground = (time: number) => {
+      ctx.clearRect(0, 0, width, height);
+
+      // Fond principal avec gradient
+      const gradient = ctx.createLinearGradient(0, 0, width, height);
+      gradient.addColorStop(0, '#050208');
+      gradient.addColorStop(1, '#0A0514');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, width, height);
+
+      // Dessiner les halos
+      halos.forEach(halo => {
+        // Mise à jour de la position
+        halo.angle += halo.speed * 0.01;
+        halo.x += Math.cos(halo.angle) * 0.5;
+        halo.y += Math.sin(halo.angle) * 0.5;
+
+        // Effet de rebond sur les bords
+        if (halo.x < -halo.size) halo.x = width + halo.size;
+        if (halo.x > width + halo.size) halo.x = -halo.size;
+        if (halo.y < -halo.size) halo.y = height + halo.size;
+        if (halo.y > height + halo.size) halo.y = -halo.size;
+
+        // Effet de pulsation
+        const pulse = Math.sin(time * halo.pulseSpeed) * halo.pulseAmount;
+        const currentSize = halo.size * (1 + pulse);
+
+        // Créer le gradient radial pour le halo
+        const gradient = ctx.createRadialGradient(
+          halo.x, halo.y, 0,
+          halo.x, halo.y, currentSize
+        );
+        gradient.addColorStop(0, `${halo.color}${Math.floor(halo.opacity * 255).toString(16).padStart(2, '0')}`);
+        gradient.addColorStop(0.5, `${halo.color}${Math.floor(halo.opacity * 0.5 * 255).toString(16).padStart(2, '0')}`);
+        gradient.addColorStop(1, `${halo.color}00`);
+
+        // Dessiner le halo
+        ctx.beginPath();
+        ctx.arc(halo.x, halo.y, currentSize, 0, Math.PI * 2);
+        ctx.fillStyle = gradient;
+        ctx.fill();
+
+        // Ajouter un effet de lueur
+        ctx.shadowColor = halo.color;
+        ctx.shadowBlur = 30;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      });
+
+      // Effet de lueur centrale pulsante
+      const centerGlow = ctx.createRadialGradient(
+        width * 0.5, height * 0.5, 0,
+        width * 0.5, height * 0.5, Math.max(width, height) * 0.5
+      );
+      const pulse = Math.sin(time * 0.001) * 0.1 + 0.2;
+      centerGlow.addColorStop(0, `rgba(107, 61, 223, ${pulse})`);
+      centerGlow.addColorStop(1, 'rgba(107, 61, 223, 0)');
+      ctx.fillStyle = centerGlow;
+      ctx.fillRect(0, 0, width, height);
+    };
+
+    const animate = (time: number) => {
+      timeRef.current = time;
+      drawBackground(time);
+      requestAnimationFrame(animate);
+    };
+
+    animate(0);
+
+    const handleResize = () => {
+      updateCanvasSize();
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return <canvas ref={canvasRef} className="fixed inset-0 w-full h-full" />;
+};
+
 export default function Projets() {
   const [selectedCategory, setSelectedCategory] = useState("Tous");
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
@@ -118,18 +257,14 @@ export default function Projets() {
     : projects.filter(project => project.tags.includes(selectedCategory));
 
   return (
-    <div className="min-h-screen bg-[#0a0a0a] text-white">
+    <div className={`relative min-h-screen ${montserrat.className}`}>
+      <div className="fixed inset-0 bg-[#050208]">
+        <HaloBackground />
+      </div>
       <Navigation />
       
-      <main className="relative min-h-screen w-full bg-[#030303]">
-        {/* Animated Background */}
-        <div className="fixed inset-0 w-full h-full overflow-hidden">
-          <div className="absolute w-[800px] h-[800px] bg-[radial-gradient(circle_at_center,_#6B3DDF_0%,_transparent_70%)] opacity-[0.15] blur-2xl animate-float-slow"></div>
-          <div className="absolute w-[600px] h-[600px] bg-[radial-gradient(circle_at_center,_#4B2CA0_0%,_transparent_70%)] opacity-[0.15] blur-2xl animate-float-slow-reverse right-0 top-1/4" style={{ animationDelay: '2s' }}></div>
-          <div className="absolute w-[700px] h-[700px] bg-[radial-gradient(circle_at_center,_#8B4FFF_0%,_transparent_70%)] opacity-[0.15] blur-2xl animate-float-slow left-1/3 bottom-0" style={{ animationDelay: '4s' }}></div>
-        </div>
-
-        <div className="container mx-auto px-4 relative z-10 pt-32 pb-16">
+      <main className="relative z-10">
+        <div className="container mx-auto px-4 pt-32 pb-16">
           <div className="max-w-7xl mx-auto">
             <h1 className="text-4xl md:text-5xl font-bold mb-4 text-center text-white">Mes Projets</h1>
             <p className="text-lg md:text-xl text-gray-300 mb-12 text-center">
