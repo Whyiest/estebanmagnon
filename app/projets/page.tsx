@@ -256,7 +256,9 @@ export default function Projets() {
       <main className="relative z-10">
         <div className="container mx-auto px-4 pt-32 pb-16">
           <div className="max-w-7xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-center text-white">Mes Projets</h1>
+            <h1 className="text-4xl md:text-5xl font-medium text-white mb-20 text-center tracking-wide">
+              Mes Projets
+            </h1>
             <p className="text-lg md:text-xl text-gray-300 mb-12 text-center">
               Découvrez une sélection de mes réalisations les plus marquantes
             </p>

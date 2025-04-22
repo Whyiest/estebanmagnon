@@ -131,7 +131,7 @@ export default function Contact() {
       <main className="relative min-h-screen">
         <div className="container mx-auto px-4 relative z-10 pt-32 pb-16">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-8 text-center bg-gradient-to-r from-[#4B2CA0] to-[#2D1B69] bg-clip-text text-transparent animate-gradient">
+            <h1 className="text-4xl md:text-5xl font-medium text-white mb-20 text-center tracking-wide">
               Contact
             </h1>
 

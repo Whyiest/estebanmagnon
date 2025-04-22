@@ -33,6 +33,8 @@ const HaloBackground = () => {
     let height = window.innerHeight;
     updateCanvasSize();
 
+    const isMobile = width < 768; // Détection mobile
+
     const halos: {
       x: number;
       y: number;
@@ -56,21 +58,28 @@ const HaloBackground = () => {
       '#3D2B8C'  // Violet profond
     ];
 
+    // Ajuster le nombre de halos et leurs paramètres en fonction de la taille de l'écran
+    const haloCount = isMobile ? 3 : 10;
+    const baseSize = isMobile ? 100 : 300;
+    const baseOpacity = isMobile ? 0.03 : 0.1;
+    const baseSpeed = isMobile ? 0.03 : 0.1;
+    const basePulseAmount = isMobile ? 0.01 : 0.15;
+
     // Créer plusieurs halos avec des positions et tailles différentes
-    for (let i = 0; i < 15; i++) {
-      const angle = (Math.PI * 2 * i) / 15; // Distribution uniforme des angles initiaux
-      const rotationRadius = Math.random() * (Math.min(width, height) * 0.4) + Math.min(width, height) * 0.2;
+    for (let i = 0; i < haloCount; i++) {
+      const angle = (Math.PI * 2 * i) / haloCount;
+      const rotationRadius = Math.random() * (Math.min(width, height) * (isMobile ? 0.2 : 0.3)) + Math.min(width, height) * (isMobile ? 0.08 : 0.15);
       
       halos.push({
         x: width * 0.5 + Math.cos(angle) * rotationRadius,
         y: height * 0.5 + Math.sin(angle) * rotationRadius,
-        size: Math.random() * 400 + 200,
+        size: Math.random() * baseSize + (isMobile ? 30 : 150),
         color: colors[Math.floor(Math.random() * colors.length)],
-        opacity: Math.random() * 0.15 + 0.05,
-        speed: Math.random() * 0.15 + 0.05,
+        opacity: Math.random() * baseOpacity + (isMobile ? 0.01 : 0.03),
+        speed: Math.random() * baseSpeed + (isMobile ? 0.01 : 0.03),
         angle: angle,
-        pulseSpeed: Math.random() * 0.002 + 0.001,
-        pulseAmount: Math.random() * 0.2 + 0.1,
+        pulseSpeed: Math.random() * 0.001 + 0.0005,
+        pulseAmount: Math.random() * basePulseAmount + (isMobile ? 0.01 : 0.05),
         rotationRadius: rotationRadius
       });
     }
@@ -92,9 +101,10 @@ const HaloBackground = () => {
         halo.x = width * 0.5 + Math.cos(halo.angle) * halo.rotationRadius;
         halo.y = height * 0.5 + Math.sin(halo.angle) * halo.rotationRadius;
 
-        // Ajout d'un mouvement sinusoïdal supplémentaire
-        halo.x += Math.sin(time * 0.0005 + halo.angle) * 20;
-        halo.y += Math.cos(time * 0.0005 + halo.angle) * 20;
+        // Ajout d'un mouvement sinusoïdal supplémentaire (réduit sur mobile)
+        const movementAmount = isMobile ? 3 : 15;
+        halo.x += Math.sin(time * 0.0003 + halo.angle) * movementAmount;
+        halo.y += Math.cos(time * 0.0003 + halo.angle) * movementAmount;
 
         // Effet de pulsation
         const pulse = Math.sin(time * halo.pulseSpeed) * halo.pulseAmount;
@@ -115,19 +125,19 @@ const HaloBackground = () => {
         ctx.fillStyle = gradient;
         ctx.fill();
 
-        // Ajouter un effet de lueur
+        // Ajouter un effet de lueur (réduit sur mobile)
         ctx.shadowColor = halo.color;
-        ctx.shadowBlur = 40;
+        ctx.shadowBlur = isMobile ? 5 : 30;
         ctx.fill();
         ctx.shadowBlur = 0;
       });
 
-      // Effet de lueur centrale pulsante
+      // Effet de lueur centrale pulsante (réduit sur mobile)
       const centerGlow = ctx.createRadialGradient(
         width * 0.5, height * 0.5, 0,
-        width * 0.5, height * 0.5, Math.max(width, height) * 0.5
+        width * 0.5, height * 0.5, Math.max(width, height) * (isMobile ? 0.1 : 0.3)
       );
-      const pulse = Math.sin(time * 0.001) * 0.08 + 0.15;
+      const pulse = Math.sin(time * 0.0008) * (isMobile ? 0.01 : 0.05) + (isMobile ? 0.02 : 0.1);
       centerGlow.addColorStop(0, `rgba(107, 61, 223, ${pulse})`);
       centerGlow.addColorStop(1, 'rgba(107, 61, 223, 0)');
       ctx.fillStyle = centerGlow;
@@ -165,7 +175,7 @@ export default function About() {
         <div className="container mx-auto px-4 pt-32 pb-24 space-y-24">
           {/* Hero Section */}
           <section className="max-w-4xl mx-auto">
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-8 text-center bg-gradient-to-r from-[#4B2CA0] to-[#2D1B69] bg-clip-text text-transparent animate-gradient">
+            <h1 className="text-3xl md:text-4xl font-medium text-white mb-20 text-center tracking-wide">
               À Propos
             </h1>
             <div className="bg-[#0a0a0a]/80 backdrop-blur-sm p-8 rounded-2xl border border-[#2D1B69]/20 hover:border-[#4B2CA0]/40 hover:shadow-lg hover:shadow-[#2D1B69]/20 transition-all duration-300">
@@ -178,7 +188,7 @@ export default function About() {
 
           {/* Timeline Section */}
           <section className="max-w-4xl mx-auto">
-            <h2 className="text-4xl font-bold text-white mb-12 text-center bg-gradient-to-r from-[#4B2CA0] to-[#2D1B69] bg-clip-text text-transparent animate-gradient">
+            <h2 className="text-2xl md:text-3xl font-medium text-white/80 mb-16 text-center tracking-wide">
               Mon Parcours
             </h2>
             <div className="relative">
@@ -307,7 +317,7 @@ export default function About() {
 
           {/* Skills Section */}
           <section className="max-w-7xl mx-auto">
-            <h2 className="text-4xl font-bold text-white mb-12 text-center bg-gradient-to-r from-[#4B2CA0] to-[#2D1B69] bg-clip-text text-transparent animate-gradient">
+            <h2 className="text-2xl md:text-3xl font-medium text-white/80 mb-16 text-center tracking-wide">
               Compétences
             </h2>
             

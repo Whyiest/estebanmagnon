@@ -34,6 +34,8 @@ const HaloBackground = () => {
     let height = window.innerHeight;
     updateCanvasSize();
 
+    const isMobile = width < 768; // Détection mobile
+
     const halos: {
       x: number;
       y: number;
@@ -57,21 +59,28 @@ const HaloBackground = () => {
       '#3D2B8C'  // Violet profond
     ];
 
+    // Ajuster le nombre de halos et leurs paramètres en fonction de la taille de l'écran
+    const haloCount = isMobile ? 3 : 10; // Réduit de 4 à 3 sur mobile, de 15 à 10 sur desktop
+    const baseSize = isMobile ? 100 : 300; // Réduit de 120 à 100 sur mobile, de 400 à 300 sur desktop
+    const baseOpacity = isMobile ? 0.03 : 0.1; // Réduit de 0.04 à 0.03 sur mobile, de 0.15 à 0.1 sur desktop
+    const baseSpeed = isMobile ? 0.03 : 0.1; // Réduit de 0.04 à 0.03 sur mobile, de 0.15 à 0.1 sur desktop
+    const basePulseAmount = isMobile ? 0.01 : 0.15; // Réduit de 0.02 à 0.01 sur mobile, de 0.2 à 0.15 sur desktop
+
     // Créer plusieurs halos avec des positions et tailles différentes
-    for (let i = 0; i < 15; i++) {
-      const angle = (Math.PI * 2 * i) / 15; // Distribution uniforme des angles initiaux
-      const rotationRadius = Math.random() * (Math.min(width, height) * 0.4) + Math.min(width, height) * 0.2;
+    for (let i = 0; i < haloCount; i++) {
+      const angle = (Math.PI * 2 * i) / haloCount;
+      const rotationRadius = Math.random() * (Math.min(width, height) * (isMobile ? 0.2 : 0.3)) + Math.min(width, height) * (isMobile ? 0.08 : 0.15);
       
       halos.push({
         x: width * 0.5 + Math.cos(angle) * rotationRadius,
         y: height * 0.5 + Math.sin(angle) * rotationRadius,
-        size: Math.random() * 400 + 200,
+        size: Math.random() * baseSize + (isMobile ? 30 : 150), // Réduit de 40 à 30 sur mobile, de 200 à 150 sur desktop
         color: colors[Math.floor(Math.random() * colors.length)],
-        opacity: Math.random() * 0.15 + 0.05,
-        speed: Math.random() * 0.15 + 0.05,
+        opacity: Math.random() * baseOpacity + (isMobile ? 0.01 : 0.03), // Réduit de 0.02 à 0.01 sur mobile, de 0.05 à 0.03 sur desktop
+        speed: Math.random() * baseSpeed + (isMobile ? 0.01 : 0.03), // Réduit de 0.02 à 0.01 sur mobile, de 0.05 à 0.03 sur desktop
         angle: angle,
-        pulseSpeed: Math.random() * 0.002 + 0.001,
-        pulseAmount: Math.random() * 0.2 + 0.1,
+        pulseSpeed: Math.random() * 0.001 + 0.0005, // Réduit de 0.002 à 0.001 et de 0.001 à 0.0005
+        pulseAmount: Math.random() * basePulseAmount + (isMobile ? 0.01 : 0.05), // Réduit de 0.02 à 0.01 sur mobile, de 0.1 à 0.05 sur desktop
         rotationRadius: rotationRadius
       });
     }
@@ -93,9 +102,10 @@ const HaloBackground = () => {
         halo.x = width * 0.5 + Math.cos(halo.angle) * halo.rotationRadius;
         halo.y = height * 0.5 + Math.sin(halo.angle) * halo.rotationRadius;
 
-        // Ajout d'un mouvement sinusoïdal supplémentaire
-        halo.x += Math.sin(time * 0.0005 + halo.angle) * 20;
-        halo.y += Math.cos(time * 0.0005 + halo.angle) * 20;
+        // Ajout d'un mouvement sinusoïdal supplémentaire (réduit sur mobile)
+        const movementAmount = isMobile ? 3 : 15; // Réduit de 4 à 3 sur mobile, de 20 à 15 sur desktop
+        halo.x += Math.sin(time * 0.0003 + halo.angle) * movementAmount; // Réduit de 0.0005 à 0.0003
+        halo.y += Math.cos(time * 0.0003 + halo.angle) * movementAmount; // Réduit de 0.0005 à 0.0003
 
         // Effet de pulsation
         const pulse = Math.sin(time * halo.pulseSpeed) * halo.pulseAmount;
@@ -116,19 +126,19 @@ const HaloBackground = () => {
         ctx.fillStyle = gradient;
         ctx.fill();
 
-        // Ajouter un effet de lueur
+        // Ajouter un effet de lueur (réduit sur mobile)
         ctx.shadowColor = halo.color;
-        ctx.shadowBlur = 40;
+        ctx.shadowBlur = isMobile ? 5 : 30; // Réduit de 8 à 5 sur mobile, de 40 à 30 sur desktop
         ctx.fill();
         ctx.shadowBlur = 0;
       });
 
-      // Effet de lueur centrale pulsante
+      // Effet de lueur centrale pulsante (réduit sur mobile)
       const centerGlow = ctx.createRadialGradient(
         width * 0.5, height * 0.5, 0,
-        width * 0.5, height * 0.5, Math.max(width, height) * 0.5
+        width * 0.5, height * 0.5, Math.max(width, height) * (isMobile ? 0.1 : 0.3) // Réduit de 0.15 à 0.1 sur mobile, de 0.5 à 0.3 sur desktop
       );
-      const pulse = Math.sin(time * 0.001) * 0.08 + 0.15;
+      const pulse = Math.sin(time * 0.0008) * (isMobile ? 0.01 : 0.05) + (isMobile ? 0.02 : 0.1); // Réduit de 0.001 à 0.0008, de 0.015 à 0.01, de 0.03 à 0.02 sur mobile, de 0.08 à 0.05, de 0.15 à 0.1 sur desktop
       centerGlow.addColorStop(0, `rgba(107, 61, 223, ${pulse})`);
       centerGlow.addColorStop(1, 'rgba(107, 61, 223, 0)');
       ctx.fillStyle = centerGlow;
@@ -275,7 +285,7 @@ export default function Experiences() {
       
       <main className="relative z-10">
         <div className="container mx-auto px-4 pt-32 pb-16">
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-16 text-center bg-gradient-to-r from-[#4B2CA0] to-[#2D1B69] bg-clip-text text-transparent animate-gradient opacity-0 animate-slide-up">
+          <h1 className="text-3xl md:text-4xl font-medium text-white mb-20 text-center tracking-wide">
             Expériences
           </h1>
 
@@ -307,7 +317,7 @@ export default function Experiences() {
                         <h2 className="text-xl md:text-2xl font-bold text-white group-hover:text-[#8B4FFF] transition-colors duration-500">{exp.company}</h2>
                         <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#8B4FFF] hidden md:block group-hover:w-full transition-all duration-500"></div>
                       </div>
-                      <span className="text-white font-medium text-sm md:text-base bg-[#2D1B4E]/40 px-4 py-1.5 rounded-full border border-[#2D1B4E]/30 group-hover:border-[#8B4FFF]/30 group-hover:bg-[#2D1B4E]/50 transition-all duration-500">{exp.year}</span>
+                      <span className="text-white font-medium text-sm md:text-base bg-[#13111C]/90 px-4 py-1.5 rounded-full border border-[#2D1B4E]/30 group-hover:border-[#8B4FFF]/30 group-hover:bg-[#2D1B4E]/50 transition-all duration-500">{exp.year}</span>
                     </div>
 
                     {/* Informations avec icônes stylisées */}
