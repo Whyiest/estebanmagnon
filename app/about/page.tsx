@@ -249,10 +249,10 @@ export default function About() {
                 >
                   {/* Contenu principal */}
                   <div className={`w-1/2 ${index % 2 === 0 ? 'md:order-2' : 'md:order-1'} max-md:w-full`}>
-                    <div className={`bg-black/40 backdrop-blur-sm p-6 rounded-xl border border-[#2D1B69]/20 hover:border-[#4B2CA0]/40 transition-all duration-300 group ${index % 2 === 0 ? 'md:text-left' : 'md:text-right'}`}>
+                    <div className={`bg-black/40 backdrop-blur-sm p-6 rounded-xl border border-[#2D1B69]/20 hover:border-[#4B2CA0]/40 transition-all duration-300 group`}>
                       <div className="absolute inset-0 bg-gradient-to-br from-[#8B4FFF]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
                       <div className="relative z-10">
-                        <div className={`flex items-center gap-3 mb-4 ${index % 2 === 0 ? '' : 'md:flex-row-reverse md:justify-end'} max-md:justify-between`}>
+                        <div className="flex items-center gap-3 mb-4">
                           <div className="flex items-center gap-3">
                             <span className="text-2xl">{item.icon}</span>
                             <h3 className="text-xl font-bold text-white group-hover:text-[#8B4FFF] transition-colors duration-300">{item.title}</h3>
@@ -261,17 +261,17 @@ export default function About() {
                             {item.year}
                           </span>
                         </div>
-                        <p className={`text-gray-300 mb-2 ${index % 2 === 0 ? '' : 'md:text-right'}`}>{item.subtitle}</p>
-                        <p className={`text-gray-400 text-sm mb-4 flex items-center gap-2 ${index % 2 === 0 ? '' : 'md:flex-row-reverse md:justify-end'}`}>
+                        <p className="text-gray-300 mb-2">{item.subtitle}</p>
+                        <p className="text-gray-400 text-sm mb-4 flex items-center gap-2">
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
                           </svg>
                           {item.location}
                         </p>
-                        <ul className={`space-y-2 ${index % 2 === 0 ? '' : 'md:text-right'}`}>
+                        <ul className="space-y-2">
                           {item.points.map((point, pointIndex) => (
-                            <li key={pointIndex} className={`text-gray-300 flex items-center gap-2 group-hover:text-gray-200 transition-colors duration-300 ${index % 2 === 0 ? '' : 'md:flex-row-reverse md:justify-end'}`}>
+                            <li key={pointIndex} className="text-gray-300 flex items-center gap-2 group-hover:text-gray-200 transition-colors duration-300">
                               <div className="relative">
                                 <div className="absolute inset-0 bg-[#8B4FFF] rounded-full blur-sm opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
                                 <div className="w-1.5 h-1.5 bg-[#8B4FFF] rounded-full relative"></div>
@@ -295,7 +295,7 @@ export default function About() {
                   </div>
 
                   {/* Année (version desktop) */}
-                  <div className={`w-1/2 ${index % 2 === 0 ? 'md:order-1' : 'md:order-2'} ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'} max-md:hidden`}>
+                  <div className={`w-1/2 ${index % 2 === 0 ? 'md:order-1' : 'md:order-2'} max-md:hidden flex ${index % 2 === 0 ? 'justify-end' : 'justify-start'} px-8`}>
                     <span className="text-white font-medium text-sm md:text-base bg-[#2D1B4E]/40 px-4 py-1.5 rounded-full border border-[#2D1B4E]/30 group-hover:border-[#8B4FFF]/30 group-hover:bg-[#2D1B4E]/50 transition-all duration-500">
                       {item.year}
                     </span>
