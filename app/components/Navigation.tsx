@@ -12,7 +12,7 @@ export default function Navigation() {
   return (
     <nav className="fixed w-full p-6 z-50 bg-opacity-90 backdrop-blur-sm">
       <div className="container mx-auto flex justify-between items-center">
-        <div className={`text-4xl ${anthonio.className} text-white`}>
+        <div className={`text-5xl ${anthonio.className} text-white`}>
           <Link href="/" className="hover:text-gray-300 transition-colors">
             esteban magnon
           </Link>

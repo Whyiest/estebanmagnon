@@ -177,18 +177,24 @@ export default function About() {
           </section>
 
           {/* Timeline Section */}
-          <section className="max-w-5xl mx-auto pt-8">
+          <section className="max-w-4xl mx-auto">
             <h2 className="text-4xl font-bold text-white mb-12 text-center bg-gradient-to-r from-[#4B2CA0] to-[#2D1B69] bg-clip-text text-transparent animate-gradient">
               Mon Parcours
             </h2>
             <div className="relative">
-              <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-[#2D1B69] to-transparent border-l-2 border-r-2 border-white/20"></div>
+              {/* Ligne de temps avec effet de lueur */}
+              <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1">
+                <div className="absolute inset-0 bg-gradient-to-b from-[#4B2CA0] via-[#2D1B69] to-transparent opacity-50"></div>
+                <div className="absolute inset-0 bg-gradient-to-b from-[#8B4FFF] to-transparent opacity-20 blur-sm"></div>
+              </div>
+
               {[
                 {
                   year: "2025",
                   title: "École Centrale d'Électronique (ECE)",
                   subtitle: "Diplôme d'ingénieur généraliste - Systèmes d'informations",
                   location: "Lyon / Paris, France",
+                  icon: "🎓",
                   points: [
                     "Labellisé SecNumedu (ANSSI) et CTI",
                     "Cycle international (English Track)",
@@ -201,6 +207,7 @@ export default function About() {
                   title: "McGill University",
                   subtitle: "Programme d'échange international",
                   location: "Montréal, Canada",
+                  icon: "🌎",
                   points: [
                     "Programmation avancée",
                     "Géopolitique et engagement civique",
@@ -212,6 +219,7 @@ export default function About() {
                   title: "EF - UCLA Long Beach",
                   subtitle: "Stage linguistique intensif",
                   location: "Los Angeles, USA",
+                  icon: "🗣️",
                   points: [
                     "Certification d'anglais niveau C1",
                     "Cours de culture américaine",
@@ -223,6 +231,7 @@ export default function About() {
                   title: "École Centrale d'Électronique (ECE)",
                   subtitle: "Début du cursus d'ingénieur",
                   location: "Lyon, France",
+                  icon: "🚀",
                   points: [
                     "Fondamentaux de l'ingénierie",
                     "Introduction aux systèmes d'information",
@@ -230,27 +239,52 @@ export default function About() {
                   ]
                 }
               ].map((item, index) => (
-                <div key={index} className={`relative flex items-center gap-8 mb-12 ${
-                  index % 2 === 0 ? 'flex-row-reverse' : ''
-                }`}>
-                  <div className="w-1/2"></div>
-                  <div className="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-[#2D1B69] rounded-full border-4 border-white/20 hover:scale-110 transition-transform duration-300"></div>
-                  <div className="w-1/2 group relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#1A1625] to-[#13111C] border border-[#2D1B4E]/30 hover:border-[#8B4FFF]/50 transition-all duration-300 p-6 hover:shadow-lg hover:shadow-[#8B4FFF]/10">
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#8B4FFF]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <div className="relative z-10">
-                      <div className="flex items-center gap-3 mb-4">
-                        <h3 className="text-xl font-bold text-white group-hover:text-[#8B4FFF] transition-colors duration-300">{item.title}</h3>
+                <div 
+                  key={index} 
+                  className={`relative flex items-center gap-8 mb-12 opacity-0 animate-slide-up`}
+                  style={{ animationDelay: `${index * 0.2}s` }}
+                >
+                  <div className={`w-1/2 ${index % 2 === 0 ? 'order-2' : 'order-1'}`}></div>
+                  
+                  {/* Point de la timeline avec effet de lueur */}
+                  <div className="absolute left-1/2 transform -translate-x-1/2">
+                    <div className="relative">
+                      <div className="absolute inset-0 bg-[#8B4FFF] rounded-full blur-md opacity-50 animate-pulse"></div>
+                      <div className="w-6 h-6 bg-gradient-to-br from-[#4B2CA0] to-[#2D1B69] rounded-full border-4 border-white/20 relative z-10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                        <span className="text-sm">{item.icon}</span>
                       </div>
-                      <p className="text-gray-300 mb-2">{item.subtitle}</p>
-                      <p className="text-gray-400 text-sm mb-4">{item.location}</p>
-                      <ul className="space-y-2">
-                        {item.points.map((point, pointIndex) => (
-                          <li key={pointIndex} className="text-gray-300 flex items-center gap-2">
-                            <span className="w-1.5 h-1.5 bg-[#8B4FFF] rounded-full"></span>
-                            {point}
-                          </li>
-                        ))}
-                      </ul>
+                    </div>
+                  </div>
+
+                  {/* Contenu de la timeline */}
+                  <div className={`w-1/2 ${index % 2 === 0 ? 'order-1' : 'order-2'}`}>
+                    <div className="bg-black/40 backdrop-blur-sm p-6 rounded-xl border border-[#2D1B69]/20 hover:border-[#4B2CA0]/40 transition-all duration-300 group">
+                      <div className="absolute inset-0 bg-gradient-to-br from-[#8B4FFF]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
+                      <div className="relative z-10">
+                        <div className="flex items-center gap-3 mb-4">
+                          <span className="text-2xl">{item.icon}</span>
+                          <h3 className="text-xl font-bold text-white group-hover:text-[#8B4FFF] transition-colors duration-300">{item.title}</h3>
+                        </div>
+                        <p className="text-gray-300 mb-2">{item.subtitle}</p>
+                        <p className="text-gray-400 text-sm mb-4 flex items-center gap-2">
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                          </svg>
+                          {item.location}
+                        </p>
+                        <ul className="space-y-2">
+                          {item.points.map((point, pointIndex) => (
+                            <li key={pointIndex} className="text-gray-300 flex items-center gap-2 group-hover:text-gray-200 transition-colors duration-300">
+                              <div className="relative">
+                                <div className="absolute inset-0 bg-[#8B4FFF] rounded-full blur-sm opacity-0 group-hover:opacity-50 transition-opacity duration-300"></div>
+                                <div className="w-1.5 h-1.5 bg-[#8B4FFF] rounded-full relative"></div>
+                              </div>
+                              {point}
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
                     </div>
                   </div>
                 </div>
