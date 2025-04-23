@@ -296,9 +296,6 @@ export default function Experiences() {
                 className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#1A1625]/60 to-[#13111C]/60 backdrop-blur-md border border-[#2D1B4E]/20 hover:border-[#8B4FFF]/40 transition-all duration-500 p-6 md:p-8 hover:shadow-2xl hover:shadow-[#8B4FFF]/5 hover:scale-[1.01] transform-gpu"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                {/* Effet de brillance au hover */}
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#8B4FFF]/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-x-[-100%] group-hover:translate-x-[100%]"></div>
-                
                 <div className="flex flex-col md:flex-row gap-6 relative">
                   {/* Logo */}
                   <div className="w-16 h-16 md:w-20 md:h-20 relative flex-shrink-0 group-hover:scale-110 transition-transform duration-500">
@@ -315,7 +312,6 @@ export default function Experiences() {
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 relative">
                       <div className="relative mb-2 md:mb-0">
                         <h2 className="text-xl md:text-2xl font-bold text-white group-hover:text-[#8B4FFF] transition-colors duration-500">{exp.company}</h2>
-                        <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#8B4FFF] hidden md:block group-hover:w-full transition-all duration-500"></div>
                       </div>
                       <span className="flex items-center gap-2 bg-[#13111C]/90 px-3 py-1.5 rounded-lg border border-[#2D1B4E]/20 group-hover:border-[#8B4FFF]/20 transition-all duration-500 w-fit">
                         <svg className="w-4 h-4 text-white group-hover:text-[#8B4FFF] transition-colors duration-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -345,7 +341,6 @@ export default function Experiences() {
                     {/* Rôle avec effet de surbrillance */}
                     <div className="relative mb-4">
                       <h3 className="text-lg md:text-xl text-white font-medium group-hover:text-[#8B4FFF] transition-colors duration-500">{exp.role}</h3>
-                      <div className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#8B4FFF] hidden md:block group-hover:w-full transition-all duration-500 delay-100"></div>
                     </div>
 
                     {/* Liste des tâches avec style amélioré */}

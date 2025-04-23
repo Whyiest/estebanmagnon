@@ -17,7 +17,7 @@ export default function Navigation() {
           <Link href="/" className="hover:text-gray-300 transition-colors">
             <Image
               src="/logo.svg"
-              alt="Esteban Magnon"
+              alt="Esteban"
               width={200}
               height={50}
               className="h-12 w-auto"

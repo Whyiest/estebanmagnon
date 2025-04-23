@@ -1,4 +1,4 @@
-# Site Web Personnel - Esteban Magnon
+# Site Web Personnel - Esteban
 
 Ce projet est mon site web personnel, développé avec les technologies modernes du web. Il présente mon profil professionnel et mes compétences.
 
