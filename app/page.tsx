@@ -142,10 +142,19 @@ const ParticleBox = () => {
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    let width = canvas.offsetWidth;
-    let height = canvas.offsetHeight;
-    canvas.width = width;
-    canvas.height = height;
+    const updateCanvasSize = () => {
+      const container = canvas.parentElement;
+      if (!container) return;
+      canvas.width = container.offsetWidth;
+      canvas.height = container.offsetHeight;
+      return { width: canvas.width, height: canvas.height };
+    };
+
+    const dimensions = updateCanvasSize();
+    if (!dimensions) return;
+
+    let width = dimensions.width;
+    let height = dimensions.height;
 
     const particles: {
       x: number;
@@ -154,16 +163,23 @@ const ParticleBox = () => {
       speedY: number;
     }[] = [];
 
-    const particleCount = 40;
-    const connectionDistance = 60;
-    const particleSpeed = 0.3;
+    const particleCount = 65;
+    const connectionDistance = 180;
+    const particleSpeed = 0.15;
+    const verticalRadius = height * 0.6;
+    const horizontalRadius = width * 0.6;
 
-    // Création des particules
+    // Création des particules avec distribution plus large
     for (let i = 0; i < particleCount; i++) {
+      const angle = (Math.PI * 2 * i) / particleCount + (Math.random() - 0.5) * 0.5;
+      const distance = 0.2 + Math.random() * 0.8;
+      const x = width/2 + Math.cos(angle) * (horizontalRadius * distance);
+      const y = height/2 + Math.sin(angle) * (verticalRadius * distance);
+      
       particles.push({
-        x: Math.random() * width,
-        y: Math.random() * height,
-        speedX: (Math.random() - 0.5) * particleSpeed,
+        x: x,
+        y: y,
+        speedX: (Math.random() - 0.5) * particleSpeed * (1 + Math.abs(Math.cos(angle))),
         speedY: (Math.random() - 0.5) * particleSpeed,
       });
     }
@@ -171,10 +187,13 @@ const ParticleBox = () => {
     const drawParticles = () => {
       ctx.clearRect(0, 0, width, height);
 
-      // Dessiner les connexions
-      ctx.strokeStyle = 'rgba(139, 92, 246, 0.15)';
-      ctx.lineWidth = 1;
+      // Créer un masque elliptique
+      ctx.save();
+      ctx.beginPath();
+      ctx.ellipse(width/2, height/2, horizontalRadius, verticalRadius, 0, 0, Math.PI * 2);
+      ctx.clip();
 
+      // Dessiner les connexions
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
@@ -203,19 +222,30 @@ const ParticleBox = () => {
         particle.x += particle.speedX;
         particle.y += particle.speedY;
 
-        // Rebond sur les bords
-        if (particle.x < 0 || particle.x > width) particle.speedX *= -1;
-        if (particle.y < 0 || particle.y > height) particle.speedY *= -1;
+        // Rebond sur les bords de l'ellipse
+        const dx = (particle.x - width/2) / horizontalRadius;
+        const dy = (particle.y - height/2) / verticalRadius;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance > 1) {
+          const angle = Math.atan2(dy * verticalRadius, dx * horizontalRadius);
+          particle.x = width/2 + Math.cos(angle) * horizontalRadius;
+          particle.y = height/2 + Math.sin(angle) * verticalRadius;
+          particle.speedX *= -1;
+          particle.speedY *= -1;
+        }
       });
 
+      ctx.restore();
       requestAnimationFrame(drawParticles);
     };
 
     const handleResize = () => {
-      width = canvas.offsetWidth;
-      height = canvas.offsetHeight;
-      canvas.width = width;
-      canvas.height = height;
+      const newDimensions = updateCanvasSize();
+      if (newDimensions) {
+        width = newDimensions.width;
+        height = newDimensions.height;
+      }
     };
 
     window.addEventListener('resize', handleResize);
@@ -227,13 +257,13 @@ const ParticleBox = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-full">
+    <div className="w-full h-full relative">
       <canvas 
         ref={canvasRef}
         className="absolute inset-0 w-full h-full"
       />
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="space-y-6">
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div className="space-y-6 text-center">
           <p className="text-purple-300 text-lg font-light tracking-wide animate-float-slow">
             Ingénieur en cybersécurité
           </p>
@@ -262,17 +292,17 @@ export default function Home() {
         <div className="container mx-auto px-4 z-10">
           <div className="max-w-6xl mx-auto flex flex-col items-center">
             <div className="text-center mb-2">
-              <span className={`text-2xl ${inter.className} text-gray-400 opacity-0 animate-slide-up`}>Hi, I'm</span>
+              <span className={`text-2xl ${inter.className} text-gray-400 animate-slide-up`}>Hi, I'm</span>
             </div>
             
             <h1 className="text-6xl md:text-8xl font-bold tracking-wider mb-8 text-center">
-              <span className="block opacity-0 animate-slide-up text-white">
+              <span className="block animate-slide-up text-white">
                 ESTEBAN
               </span>
             </h1>
 
             {/* Particle Animation Box */}
-            <div className="opacity-0 animate-slide-up-delayed w-full max-w-xl h-40">
+            <div className="w-full max-w-4xl h-[200px] relative">
               <ParticleBox />
             </div>
           </div>
