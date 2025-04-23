@@ -178,7 +178,7 @@ export default function About() {
             <h1 className="text-3xl md:text-4xl font-medium text-white mb-20 text-center tracking-wide">
               À Propos
             </h1>
-            <div className="bg-[#0a0a0a]/80 backdrop-blur-sm p-8 rounded-2xl border border-[#2D1B69]/20 hover:border-[#4B2CA0]/40 hover:shadow-lg hover:shadow-[#2D1B69]/20 transition-all duration-300">
+            <div className="bg-[#0a0a0a]/80 backdrop-blur-sm p-8 rounded-2xl border-2 border-white/20 hover:border-white/40 hover:shadow-lg hover:shadow-[#2D1B69]/20 transition-all duration-300">
               <p className="text-gray-300 leading-relaxed text-lg text-center">
                 Passionné par la cybersécurité et le développement, je suis un ingénieur de 23 ans qui aime relever des défis techniques. 
                 Mon approche combine créativité et rigueur pour développer des solutions innovantes et sécurisées.
@@ -259,7 +259,7 @@ export default function About() {
                 >
                   {/* Contenu principal */}
                   <div className={`w-1/2 ${index % 2 === 0 ? 'md:order-2' : 'md:order-1'} max-md:w-full`}>
-                    <div className={`bg-black/40 backdrop-blur-sm p-6 rounded-xl border border-[#2D1B69]/20 hover:border-[#4B2CA0]/40 transition-all duration-300 group`}>
+                    <div className={`bg-black/40 backdrop-blur-sm p-6 rounded-xl border-2 border-white/20 hover:border-white/40 transition-all duration-300 group`}>
                       <div className="absolute inset-0 bg-gradient-to-br from-[#8B4FFF]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl"></div>
                       <div className="relative z-10">
                         <div className="flex items-center gap-3 mb-4">
@@ -326,7 +326,7 @@ export default function About() {
               {/* Top Grid - 4 boxes */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {/* Technical Skills */}
-                <div className="group relative overflow-hidden rounded-2xl bg-[#0a0a0a]/80 backdrop-blur-sm p-6 rounded-xl border border-[#2D1B69]/20 hover:border-[#4B2CA0]/40 hover:shadow-lg hover:shadow-[#2D1B69]/20 transition-all duration-300 transform hover:-translate-y-1">
+                <div className="group relative overflow-hidden rounded-2xl bg-[#0a0a0a]/80 backdrop-blur-sm p-6 rounded-xl border-2 border-white/20 hover:border-white/40 hover:shadow-lg hover:shadow-[#2D1B69]/20 transition-all duration-300 transform hover:-translate-y-1">
                   <div className="flex items-center gap-3 mb-4">
                     <svg className="w-5 h-5 text-[#4B2CA0]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
@@ -346,7 +346,7 @@ export default function About() {
                 </div>
 
                 {/* Cybersecurity */}
-                <div className="group relative overflow-hidden rounded-2xl bg-[#0a0a0a]/80 backdrop-blur-sm p-6 rounded-xl border border-[#2D1B69]/20 hover:border-[#4B2CA0]/40 hover:shadow-lg hover:shadow-[#2D1B69]/20 transition-all duration-300 transform hover:-translate-y-1">
+                <div className="group relative overflow-hidden rounded-2xl bg-[#0a0a0a]/80 backdrop-blur-sm p-6 rounded-xl border-2 border-white/20 hover:border-white/40 hover:shadow-lg hover:shadow-[#2D1B69]/20 transition-all duration-300 transform hover:-translate-y-1">
                   <div className="flex items-center gap-3 mb-4">
                     <svg className="w-5 h-5 text-[#4B2CA0]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
@@ -367,7 +367,7 @@ export default function About() {
                 </div>
 
                 {/* Tools */}
-                <div className="group relative overflow-hidden rounded-2xl bg-[#0a0a0a]/80 backdrop-blur-sm p-6 rounded-xl border border-[#2D1B69]/20 hover:border-[#4B2CA0]/40 hover:shadow-lg hover:shadow-[#2D1B69]/20 transition-all duration-300 transform hover:-translate-y-1">
+                <div className="group relative overflow-hidden rounded-2xl bg-[#0a0a0a]/80 backdrop-blur-sm p-6 rounded-xl border-2 border-white/20 hover:border-white/40 hover:shadow-lg hover:shadow-[#2D1B69]/20 transition-all duration-300 transform hover:-translate-y-1">
                   <div className="flex items-center gap-3 mb-4">
                     <svg className="w-5 h-5 text-[#4B2CA0]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
@@ -388,7 +388,7 @@ export default function About() {
                 </div>
 
                 {/* Languages */}
-                <div className="group relative overflow-hidden rounded-2xl bg-[#0a0a0a]/80 backdrop-blur-sm p-6 rounded-xl border border-[#2D1B69]/20 hover:border-[#4B2CA0]/40 hover:shadow-lg hover:shadow-[#2D1B69]/20 transition-all duration-300 transform hover:-translate-y-1">
+                <div className="group relative overflow-hidden rounded-2xl bg-[#0a0a0a]/80 backdrop-blur-sm p-6 rounded-xl border-2 border-white/20 hover:border-white/40 hover:shadow-lg hover:shadow-[#2D1B69]/20 transition-all duration-300 transform hover:-translate-y-1">
                   <div className="flex items-center gap-3 mb-4">
                     <svg className="w-5 h-5 text-[#4B2CA0]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
@@ -411,7 +411,7 @@ export default function About() {
 
               {/* Certifications - Centered below */}
               <div className="max-w-3xl mx-auto w-full">
-                <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#1A1625] to-[#13111C] border border-[#2D1B4E]/30 hover:border-[#8B4FFF]/50 transition-all duration-300 p-6 hover:shadow-lg hover:shadow-[#8B4FFF]/10">
+                <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#1A1625] to-[#13111C] border-2 border-white/20 hover:border-white/40 transition-all duration-300 p-6 hover:shadow-lg hover:shadow-[#8B4FFF]/10">
                   <div className="absolute inset-0 bg-gradient-to-br from-[#8B4FFF]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   <div className="relative z-10">
                     <div className="flex items-center gap-3 mb-4">

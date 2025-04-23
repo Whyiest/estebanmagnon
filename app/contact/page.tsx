@@ -138,12 +138,12 @@ export default function Contact() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {/* Contact Info - Maintenant à gauche */}
               <div className="space-y-6 md:order-1">
-                <div className="bg-gradient-to-br from-[#1A1625]/60 to-[#13111C]/60 backdrop-blur-md p-6 md:p-8 rounded-2xl border border-[#2D1B4E]/20 hover:border-[#8B4FFF]/40 transition-all duration-500">
+                <div className="bg-gradient-to-br from-[#1A1625]/60 to-[#13111C]/60 backdrop-blur-md p-6 md:p-8 rounded-2xl border-2 border-white/20 hover:border-white/40 transition-all duration-500">
                   <h2 className="text-xl md:text-2xl font-bold text-white mb-6">Contact direct</h2>
                   <div className="space-y-4">
                     <a 
                       href="mailto:esteban.magnon@outlook.fr"
-                      className="flex items-center gap-4 p-4 bg-[#13111C]/90 rounded-xl border border-[#2D1B4E]/20 hover:border-[#8B4FFF]/20 hover:shadow-lg hover:shadow-[#8B4FFF]/5 transition-all duration-300 transform hover:-translate-y-1 ring-1 ring-[#2D1B4E]/10"
+                      className="flex items-center gap-4 p-4 bg-[#13111C]/90 rounded-xl border-2 border-white/10 hover:border-white/20 hover:shadow-lg hover:shadow-[#8B4FFF]/5 transition-all duration-300 transform hover:-translate-y-1 ring-1 ring-[#2D1B4E]/10"
                     >
                       <FiMail className="text-2xl text-white" />
                       <div>
@@ -154,14 +154,14 @@ export default function Contact() {
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-br from-[#1A1625]/60 to-[#13111C]/60 backdrop-blur-md p-6 md:p-8 rounded-2xl border border-[#2D1B4E]/20 hover:border-[#8B4FFF]/40 transition-all duration-500">
+                <div className="bg-gradient-to-br from-[#1A1625]/60 to-[#13111C]/60 backdrop-blur-md p-6 md:p-8 rounded-2xl border-2 border-white/20 hover:border-white/40 transition-all duration-500">
                   <h2 className="text-xl md:text-2xl font-bold text-white mb-6">Réseaux sociaux</h2>
                   <div className="space-y-4">
                     <a 
                       href="https://www.linkedin.com/in/esteban-magnon/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-4 p-4 bg-[#13111C]/90 rounded-xl border border-[#2D1B4E]/20 hover:border-[#8B4FFF]/20 hover:shadow-lg hover:shadow-[#8B4FFF]/5 transition-all duration-300 transform hover:-translate-y-1 ring-1 ring-[#2D1B4E]/10"
+                      className="flex items-center gap-4 p-4 bg-[#13111C]/90 rounded-xl border-2 border-white/10 hover:border-white/20 hover:shadow-lg hover:shadow-[#8B4FFF]/5 transition-all duration-300 transform hover:-translate-y-1 ring-1 ring-[#2D1B4E]/10"
                     >
                       <FiLinkedin className="text-2xl text-white" />
                       <div>
@@ -174,7 +174,7 @@ export default function Contact() {
                       href="https://github.com/Whyiest"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-4 p-4 bg-[#13111C]/90 rounded-xl border border-[#2D1B4E]/20 hover:border-[#8B4FFF]/20 hover:shadow-lg hover:shadow-[#8B4FFF]/5 transition-all duration-300 transform hover:-translate-y-1 ring-1 ring-[#2D1B4E]/10"
+                      className="flex items-center gap-4 p-4 bg-[#13111C]/90 rounded-xl border-2 border-white/10 hover:border-white/20 hover:shadow-lg hover:shadow-[#8B4FFF]/5 transition-all duration-300 transform hover:-translate-y-1 ring-1 ring-[#2D1B4E]/10"
                     >
                       <FiGithub className="text-2xl text-white" />
                       <div>
@@ -185,11 +185,11 @@ export default function Contact() {
                   </div>
                 </div>
 
-                <div className="bg-gradient-to-br from-[#1A1625]/60 to-[#13111C]/60 backdrop-blur-md p-6 md:p-8 rounded-2xl border border-[#2D1B4E]/20 hover:border-[#8B4FFF]/40 transition-all duration-500">
+                <div className="bg-gradient-to-br from-[#1A1625]/60 to-[#13111C]/60 backdrop-blur-md p-6 md:p-8 rounded-2xl border-2 border-white/20 hover:border-white/40 transition-all duration-500">
                   <h2 className="text-xl md:text-2xl font-bold text-white mb-6">CV</h2>
                   <a 
                     href="/cv-fr.pdf"
-                    className="inline-flex items-center gap-3 px-6 py-4 bg-white rounded-xl border border-white/10 hover:bg-white/90 hover:shadow-lg hover:shadow-white/5 transition-all duration-300 transform hover:-translate-y-1 group"
+                    className="inline-flex items-center gap-3 px-6 py-4 bg-white rounded-xl border-2 border-white/10 hover:border-white/20 hover:shadow-lg hover:shadow-white/5 transition-all duration-300 transform hover:-translate-y-1 group"
                   >
                     <FaFileAlt className="text-[#2D1B4E] text-xl group-hover:text-[#4B2CA0] transition-colors duration-300" />
                     <span className="text-[#2D1B4E] font-medium text-base md:text-lg group-hover:text-[#4B2CA0] transition-colors duration-300">Télécharger mon CV</span>
@@ -198,7 +198,7 @@ export default function Contact() {
               </div>
 
               {/* Contact Form - Maintenant à droite */}
-              <div className="bg-[#13111C] p-6 md:p-8 rounded-2xl border border-[#2D1B4E]/30 md:order-2">
+              <div className="bg-[#13111C] p-6 md:p-8 rounded-2xl border-2 border-white/20 hover:border-white/40 md:order-2">
                 <form onSubmit={handleSubmit} className="space-y-6">
                   <div>
                     <label htmlFor="name" className="block text-sm md:text-base text-gray-300 mb-2">Nom</label>
@@ -207,7 +207,7 @@ export default function Contact() {
                       id="name"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-4 py-3 bg-[#1A1625] border border-[#2D1B4E]/30 rounded-lg text-white focus:outline-none focus:border-[#4B2CA0] transition-colors"
+                      className="w-full px-4 py-3 bg-[#1A1625] border-2 border-white/10 hover:border-white/20 rounded-lg text-white focus:outline-none focus:border-[#4B2CA0] transition-colors"
                       required
                     />
                   </div>
@@ -218,7 +218,7 @@ export default function Contact() {
                       id="email"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-3 bg-[#1A1625] border border-[#2D1B4E]/30 rounded-lg text-white focus:outline-none focus:border-[#4B2CA0] transition-colors"
+                      className="w-full px-4 py-3 bg-[#1A1625] border-2 border-white/10 hover:border-white/20 rounded-lg text-white focus:outline-none focus:border-[#4B2CA0] transition-colors"
                       required
                     />
                   </div>
@@ -228,7 +228,7 @@ export default function Contact() {
                       id="message"
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full px-4 py-3 bg-[#1A1625] border border-[#2D1B4E]/30 rounded-lg text-white focus:outline-none focus:border-[#4B2CA0] transition-colors h-32"
+                      className="w-full px-4 py-3 bg-[#1A1625] border-2 border-white/10 hover:border-white/20 rounded-lg text-white focus:outline-none focus:border-[#4B2CA0] transition-colors h-32"
                       required
                     />
                   </div>

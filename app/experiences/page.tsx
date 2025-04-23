@@ -293,7 +293,7 @@ export default function Experiences() {
             {experiences.map((exp, index) => (
               <div 
                 key={index} 
-                className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#1A1625]/60 to-[#13111C]/60 backdrop-blur-md border border-[#2D1B4E]/20 hover:border-[#8B4FFF]/40 transition-all duration-500 p-6 md:p-8 hover:shadow-2xl hover:shadow-[#8B4FFF]/5 hover:scale-[1.01] transform-gpu"
+                className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-[#1A1625]/60 to-[#13111C]/60 backdrop-blur-md border-2 border-white/20 hover:border-white/40 transition-all duration-500 p-6 md:p-8 hover:shadow-2xl hover:shadow-[#8B4FFF]/5 hover:scale-[1.01] transform-gpu"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div className="flex flex-col md:flex-row gap-6 relative">
