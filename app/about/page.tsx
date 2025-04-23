@@ -175,7 +175,7 @@ export default function About() {
         <div className="container mx-auto px-4 pt-32 pb-24 space-y-24">
           {/* Hero Section */}
           <section className="max-w-4xl mx-auto">
-            <h1 className={`text-4xl md:text-5xl font-medium text-center mb-16 tracking-wide bg-gradient-to-r from-white via-white/90 to-white/80 bg-clip-text text-transparent ${anthonio.className}`}>
+            <h1 className={`text-4xl md:text-5xl font-medium text-center mb-16 tracking-wide bg-gradient-to-r from-white via-white/90 to-white/80 bg-clip-text text-transparent ${anthonio.className} leading-relaxed py-2`}>
               À Propos
             </h1>
             <div className="relative">
@@ -192,7 +192,7 @@ export default function About() {
 
           {/* Timeline Section */}
           <section className="max-w-4xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-medium text-white/80 mb-16 text-center tracking-wide">
+            <h2 className={`text-4xl md:text-5xl font-medium text-center mb-16 tracking-wide bg-gradient-to-r from-white via-white/90 to-white/80 bg-clip-text text-transparent ${anthonio.className} leading-relaxed py-2`}>
               Mon Parcours
             </h2>
             <div className="relative">
@@ -321,7 +321,7 @@ export default function About() {
 
           {/* Skills Section */}
           <section className="max-w-7xl mx-auto">
-            <h2 className="text-2xl md:text-3xl font-medium text-white/80 mb-16 text-center tracking-wide">
+            <h2 className={`text-4xl md:text-5xl font-medium text-center mb-16 tracking-wide bg-gradient-to-r from-white via-white/90 to-white/80 bg-clip-text text-transparent ${anthonio.className} leading-relaxed py-2`}>
               Compétences
             </h2>
             

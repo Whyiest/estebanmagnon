@@ -131,7 +131,7 @@ export default function Contact() {
       <main className="relative min-h-screen">
         <div className="container mx-auto px-4 relative z-10 pt-32 pb-16">
           <div className="max-w-4xl mx-auto">
-            <h1 className={`text-4xl md:text-5xl font-medium text-center mb-20 tracking-wide ${anthonio.className} bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent`}>
+            <h1 className={`text-4xl md:text-5xl font-medium text-center mb-16 tracking-wide bg-gradient-to-r from-white via-white/90 to-white/80 bg-clip-text text-transparent ${anthonio.className} leading-relaxed py-2`}>
               Contact
             </h1>
 
