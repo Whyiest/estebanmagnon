@@ -163,23 +163,22 @@ const ParticleBox = () => {
       speedY: number;
     }[] = [];
 
-    const particleCount = 65;
-    const connectionDistance = 180;
-    const particleSpeed = 0.15;
-    const verticalRadius = height * 0.6;
-    const horizontalRadius = width * 0.6;
+    const particleCount = 20;
+    const connectionDistance = 250;
+    const particleSpeed = 0.08;
+    const radius = Math.min(width, height) * 0.6;
 
-    // Création des particules avec distribution plus large
+    // Création des particules avec distribution très aérée
     for (let i = 0; i < particleCount; i++) {
-      const angle = (Math.PI * 2 * i) / particleCount + (Math.random() - 0.5) * 0.5;
-      const distance = 0.2 + Math.random() * 0.8;
-      const x = width/2 + Math.cos(angle) * (horizontalRadius * distance);
-      const y = height/2 + Math.sin(angle) * (verticalRadius * distance);
+      const angle = (Math.PI * 2 * i) / particleCount + (Math.random() - 0.5) * 0.8;
+      const randomOffset = (Math.random() * 0.7) + 0.3;
+      const x = width/2 + Math.cos(angle) * (radius * randomOffset);
+      const y = height/2 + Math.sin(angle) * (radius * randomOffset);
       
       particles.push({
         x: x,
         y: y,
-        speedX: (Math.random() - 0.5) * particleSpeed * (1 + Math.abs(Math.cos(angle))),
+        speedX: (Math.random() - 0.5) * particleSpeed,
         speedY: (Math.random() - 0.5) * particleSpeed,
       });
     }
@@ -187,10 +186,10 @@ const ParticleBox = () => {
     const drawParticles = () => {
       ctx.clearRect(0, 0, width, height);
 
-      // Créer un masque elliptique
+      // Créer un masque circulaire plus grand
       ctx.save();
       ctx.beginPath();
-      ctx.ellipse(width/2, height/2, horizontalRadius, verticalRadius, 0, 0, Math.PI * 2);
+      ctx.arc(width/2, height/2, radius, 0, Math.PI * 2);
       ctx.clip();
 
       // Dessiner les connexions
@@ -201,8 +200,9 @@ const ParticleBox = () => {
           const distance = Math.sqrt(dx * dx + dy * dy);
 
           if (distance < connectionDistance) {
-            const opacity = (1 - distance / connectionDistance) * 0.15;
+            const opacity = (1 - distance / connectionDistance) * 0.3;
             ctx.strokeStyle = `rgba(139, 92, 246, ${opacity})`;
+            ctx.lineWidth = 1.3;
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
@@ -222,15 +222,15 @@ const ParticleBox = () => {
         particle.x += particle.speedX;
         particle.y += particle.speedY;
 
-        // Rebond sur les bords de l'ellipse
-        const dx = (particle.x - width/2) / horizontalRadius;
-        const dy = (particle.y - height/2) / verticalRadius;
+        // Rebond sur les bords du cercle
+        const dx = (particle.x - width/2) / radius;
+        const dy = (particle.y - height/2) / radius;
         const distance = Math.sqrt(dx * dx + dy * dy);
 
         if (distance > 1) {
-          const angle = Math.atan2(dy * verticalRadius, dx * horizontalRadius);
-          particle.x = width/2 + Math.cos(angle) * horizontalRadius;
-          particle.y = height/2 + Math.sin(angle) * verticalRadius;
+          const angle = Math.atan2(dy, dx);
+          particle.x = width/2 + Math.cos(angle) * radius;
+          particle.y = height/2 + Math.sin(angle) * radius;
           particle.speedX *= -1;
           particle.speedY *= -1;
         }
