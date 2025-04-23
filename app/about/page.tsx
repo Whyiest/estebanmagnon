@@ -175,35 +175,18 @@ export default function About() {
         <div className="container mx-auto px-4 pt-32 pb-24 space-y-24">
           {/* Hero Section */}
           <section className="max-w-4xl mx-auto">
-            <h1 className={`text-4xl md:text-5xl font-medium text-center mb-24 tracking-wide bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent ${anthonio.className}`}>
+            <h1 className={`text-4xl md:text-5xl font-medium text-center mb-16 tracking-wide bg-gradient-to-r from-white via-white/90 to-white/80 bg-clip-text text-transparent ${anthonio.className}`}>
               À Propos
             </h1>
             <div className="relative">
-              {/* Ligne décorative */}
-              <div className="absolute left-1/2 -translate-x-1/2 top-0 w-px h-16 bg-gradient-to-b from-[#8B4FFF] to-transparent"></div>
-              
               {/* Texte principal */}
-              <div className="relative text-center space-y-6 px-4">
-                <p className="text-xl md:text-2xl font-light leading-relaxed text-white/90 max-w-2xl mx-auto">
-                  Passionné par la{' '}
+              <div className="relative text-center px-4 mb-16">
+                <p className="text-xl md:text-2xl font-light leading-relaxed text-white/90 max-w-3xl mx-auto">
+                  Étudiant ingénieur passionné par la{' '}
                   <span className="text-[#8B4FFF] font-normal">cybersécurité</span>{' '}
-                  et le{' '}
-                  <span className="text-[#8B4FFF] font-normal">développement</span>,
-                </p>
-                <p className="text-lg md:text-xl font-light leading-relaxed text-white/80 max-w-2xl mx-auto">
-                  je suis un ingénieur de 23 ans qui aime relever des défis techniques.
-                </p>
-                <p className="text-lg md:text-xl font-light leading-relaxed text-white/80 max-w-2xl mx-auto">
-                  Mon approche combine{' '}
-                  <span className="text-[#8B4FFF] font-normal">créativité</span>{' '}
-                  et{' '}
-                  <span className="text-[#8B4FFF] font-normal">rigueur</span>{' '}
-                  pour développer des solutions innovantes et sécurisées.
+                  et désireux d'entreprendre de nouveaux projets !
                 </p>
               </div>
-
-              {/* Ligne décorative du bas */}
-              <div className="absolute left-1/2 -translate-x-1/2 bottom-0 w-px h-16 bg-gradient-to-t from-[#8B4FFF] to-transparent"></div>
             </div>
           </section>
 
