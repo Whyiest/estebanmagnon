@@ -131,7 +131,7 @@ export default function Contact() {
       <main className="relative min-h-screen">
         <div className="container mx-auto px-4 relative z-10 pt-32 pb-16">
           <div className="max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-medium text-white mb-20 text-center tracking-wide">
+            <h1 className={`text-4xl md:text-5xl font-medium text-center mb-20 tracking-wide ${anthonio.className} bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent`}>
               Contact
             </h1>
 

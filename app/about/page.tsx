@@ -175,14 +175,35 @@ export default function About() {
         <div className="container mx-auto px-4 pt-32 pb-24 space-y-24">
           {/* Hero Section */}
           <section className="max-w-4xl mx-auto">
-            <h1 className="text-3xl md:text-4xl font-medium text-white mb-20 text-center tracking-wide">
+            <h1 className={`text-4xl md:text-5xl font-medium text-center mb-24 tracking-wide bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent ${anthonio.className}`}>
               À Propos
             </h1>
-            <div className="bg-[#0a0a0a]/80 backdrop-blur-sm p-8 rounded-2xl border-2 border-white/20 hover:border-white/40 hover:shadow-lg hover:shadow-[#2D1B69]/20 transition-all duration-300">
-              <p className="text-gray-300 leading-relaxed text-lg text-center">
-                Passionné par la cybersécurité et le développement, je suis un ingénieur de 23 ans qui aime relever des défis techniques. 
-                Mon approche combine créativité et rigueur pour développer des solutions innovantes et sécurisées.
-              </p>
+            <div className="relative">
+              {/* Ligne décorative */}
+              <div className="absolute left-1/2 -translate-x-1/2 top-0 w-px h-16 bg-gradient-to-b from-[#8B4FFF] to-transparent"></div>
+              
+              {/* Texte principal */}
+              <div className="relative text-center space-y-6 px-4">
+                <p className="text-xl md:text-2xl font-light leading-relaxed text-white/90 max-w-2xl mx-auto">
+                  Passionné par la{' '}
+                  <span className="text-[#8B4FFF] font-normal">cybersécurité</span>{' '}
+                  et le{' '}
+                  <span className="text-[#8B4FFF] font-normal">développement</span>,
+                </p>
+                <p className="text-lg md:text-xl font-light leading-relaxed text-white/80 max-w-2xl mx-auto">
+                  je suis un ingénieur de 23 ans qui aime relever des défis techniques.
+                </p>
+                <p className="text-lg md:text-xl font-light leading-relaxed text-white/80 max-w-2xl mx-auto">
+                  Mon approche combine{' '}
+                  <span className="text-[#8B4FFF] font-normal">créativité</span>{' '}
+                  et{' '}
+                  <span className="text-[#8B4FFF] font-normal">rigueur</span>{' '}
+                  pour développer des solutions innovantes et sécurisées.
+                </p>
+              </div>
+
+              {/* Ligne décorative du bas */}
+              <div className="absolute left-1/2 -translate-x-1/2 bottom-0 w-px h-16 bg-gradient-to-t from-[#8B4FFF] to-transparent"></div>
             </div>
           </section>
 

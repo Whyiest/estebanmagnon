@@ -256,8 +256,8 @@ export default function Projets() {
       <main className="relative z-10">
         <div className="container mx-auto px-4 pt-32 pb-16">
           <div className="max-w-7xl mx-auto">
-            <h1 className="text-4xl md:text-5xl font-medium text-white mb-20 text-center tracking-wide">
-              Mes Projets
+            <h1 className={`text-4xl md:text-5xl font-medium text-center mb-20 tracking-wide ${anthonio.className} bg-gradient-to-r from-white to-white/80 bg-clip-text text-transparent`}>
+              Projets
             </h1>
             <p className="text-lg md:text-xl text-gray-300 mb-12 text-center">
               Découvrez une sélection de mes réalisations les plus marquantes
