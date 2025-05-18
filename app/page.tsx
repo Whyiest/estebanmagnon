@@ -265,7 +265,7 @@ const ParticleBox = () => {
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
         <div className="space-y-6 text-center">
           <p className="text-purple-300 text-lg font-light tracking-wide animate-float-slow">
-            Ingénieur en cybersécurité
+            Ingénieur
           </p>
           <div className="flex items-center justify-center gap-6">
             <span className="px-3 py-1 text-purple-300 text-sm animate-float-slow-2">
